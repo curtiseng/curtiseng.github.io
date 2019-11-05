@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CLOUDNATIVE on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/CLOUDNATIVE/</link>
+    <description>Recent content in CLOUDNATIVE on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 04 Nov 2019 16:11:45 +0800</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/CLOUDNATIVE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>envoy与hystrix熔断比较</title>
+      <link>https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Mon, 04 Nov 2019 16:11:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/</guid>
+      <description>envoy有更好的熔断策略
+hystrix有更精确的控制以及fallback操作
+但这些都可以弥补，如精确的路由操作以及在方法的异常内处理fallback操作</description>
+    </item>
+    
+    <item>
+      <title>云原生参会记录2019</title>
+      <link>https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 27 Jun 2019 20:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/</guid>
+      <description>###1. workshop
+ 基于 SOFAStack 快速构建微服务  本地演示通过SOFARPC实现服务间调用。
+ 金融场景下的分布式事务最佳实践  分布式事务主要实现了AT和TCC两种场景，Seata项目正在实现XA和SAGA模式的分布式事务。
+ 基于 Kubernetes 的云原生部署体验  上述demo在SOFACloud的部署与发布。
+ 云上的 Service Mesh 基本使用场景体验  蚂蚁金服的Cloud Mesh产品体验，实现零侵入的服务链路监控，以及灰度发布。
+ 基于 Serverless 轻松构建云上应用  蚂蚁金服对于Serverless的理解为一切皆可Serverless。
+2. 技术演讲  部署 Harbor 和管理 Harbor Helm Charts 的真实实践与如何轻松地重复启动 Helm Chart 安装过程：
+ 可使用向导来呈现安装 Chart 时的设置验证（values.yaml）；
+ 相应 Chart 设置的值集将作为 Chart 部署配置保留，以备将来重用；
+ 可以在存储库中管理 Chart 安装的 Chart 部署配置，以进行区分、复制和重用。
+  惠普使用Istio和OPA实现不同级别服务的Access Control。第一级别的服务大部分来自第三方服务，无法对服务进行代码级别的权限控制，在这一级别的服务我们使用Istio的服务级别的权限控制，Istio服务级别的权限控制使用的是Kubernetes自身的RBAC特性；第二级别服务就是业务中比较公共的服务，这些服务在不同的场景下有不同的权限控制，我们使用OPA来实现基于策略的访问控制(基于属性的访问控制)，基于策略的权限控制可以很灵活的更改。
+ 降低SCF托管应用的冷启动，主要分为三个方面，一个是降低冷启动时延，优化调度、容器启动、代码拉取，同时更改容器网络实现。二是避免冷启动，实时预测，平衡资源和延迟，对于调用链路上的函数，感知后提前启动，经过以上优化，降低到0.0X的冷启动率。三是灰度切换，提前预知。关于网络优化主要是创建SCF网络代理，在创建容器时同时创建网卡代理，对比传统创建容器后初始化网卡更加快速。
+ AWS分享Java程序员的Kubernetes之旅(github)：</description>
+    </item>
+    
+  </channel>
+</rss>

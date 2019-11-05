@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BUSINESS on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/BUSINESS/</link>
+    <description>Recent content in BUSINESS on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 01 Nov 2019 17:11:45 +0800</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/BUSINESS/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数据权限的两种思路</title>
+      <link>https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Fri, 01 Nov 2019 17:11:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/</guid>
+      <description>数据权限的两种思路 一种侧重自动过滤，请求没有明确的业务意图，一种侧重主动拦截，请求有明确的业务意图；
+前者将业务意图封装在数据库层面，后者将业务意图交由前端和领域层（控制层只是领域层的简单表现形式）。
+数据库拦截器（数据过滤）  Mybatis Intercepts JPA Predicate  url规则过滤（权限拦截）  基于策略的权限控制  以部门为例 比如我要部门的人员，数据库里人员有系统部门字段，不同角色可以看到不同的人，部门管理员可以看到自己所在部门的人员，父部门可以看到子部门的人员，数据拦截的方式是在业务后端判断不同角色，查找不同的规则，根据规则填充拦截器，返回数据；URL规则过滤则是提前将规则数据放入策略引擎，前端需要根据具体业务将具体需要查询的部门，子部门返回，规则引擎判断URL里的部门数据是否合法。</description>
+    </item>
+    
+    <item>
+      <title>组织机构及项目建模</title>
+      <link>https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/</link>
+      <pubDate>Tue, 29 Oct 2019 16:35:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/</guid>
+      <description>公司与项目的关系</description>
+    </item>
+    
+    <item>
+      <title>工作流与状态机杂谈</title>
+      <link>https://fallingyang.github.io/posts/%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9C%BA%E6%9D%82%E8%B0%88/</link>
+      <pubDate>Tue, 23 Oct 2018 22:30:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9C%BA%E6%9D%82%E8%B0%88/</guid>
+      <description>微服务下使用状态机与事件驱动实现复杂业务流程。
+ 一. 区别  process vs. activity  首先这里的activity是活动，而不是开源工作流引擎Acticiti.
+参考：[process vs. activity][1]
+ business process vs. workflow  工作流是软件实现层次的业务流程，而BPMN是沟通两者的便利的工具。
+When describing a workflow, which is an executable process.
+参考：[What is the fundamental difference between a workflow and a business process in the context of process (or workflow) automation?][2]
+ workfow engine vs. state machine  使用状态机的情况：业务流程不常变，流程控制权在服务商里的不复杂的业务流程，所以在我的感觉大部分情况下状态机适合互联网公司，在没有特殊必要的情况下可以避免引入工作流引擎，而使用状态机来代替。当然也不是绝对的，主要因素是业务流程是否复杂，复杂评判的标准是工程师是否可以用状态图准确的描述业务流程发生的所有状态。
+使用工作流引擎的情况：业务复杂多变，业务流程数量巨大，与之对应工作流引擎一半多用在企业级服务里。但企业级服务在某些流程不怎么常用或者需要追求一些性能，这时可以用状态机来代替工作流引擎。
+参考：[Workflow Engine vs. State Machine][3]
+ what&amp;rsquo;s is BPMN(Business Process Model and Notation)  参考：http://www.</description>
+    </item>
+    
+  </channel>
+</rss>

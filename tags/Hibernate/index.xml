@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hibernate on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/Hibernate/</link>
+    <description>Recent content in Hibernate on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 13 Mar 2019 10:46:34 +0000</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/Hibernate/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hibernate使用</title>
+      <link>https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/</guid>
+      <description>常见问题: 1. SpringJPA中getOne()与findById()区别:
+   getOne() findById()     Lazily loaded reference to target entity Actually loads the entity for the given id   Useful only when access to properties of object is not required Object is eagerly loaded so all attributes can be accessed   Throws EntityNotFoundException if actual object does not exist at the time of access invocation Returns null if actual object corresponding to given Id does not exist   Better performance An additional round-trip to database is required    https://www.</description>
+    </item>
+    
+  </channel>
+</rss>

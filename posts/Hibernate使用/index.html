@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hibernate使用 | 往事随风的博客</title>
+    <meta property="og:title" content="Hibernate使用 - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-03-13T10:46:34&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-03-13T10:46:34&#43;08:00">
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="Hibernate使用">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Hibernate使用</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年3月13日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            
+
+<h4 id="常见问题">常见问题:</h4>
+
+<p><strong>1. SpringJPA中getOne()与findById()区别:</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>getOne()</th>
+<th>findById()</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Lazily loaded reference to target entity</td>
+<td>Actually loads the entity for the given id</td>
+</tr>
+
+<tr>
+<td>Useful only when access to properties of object is not required</td>
+<td>Object is eagerly loaded so all attributes can be accessed</td>
+</tr>
+
+<tr>
+<td>Throws EntityNotFoundException if actual object does not exist at the time of access invocation</td>
+<td>Returns null if actual object corresponding to given Id does not exist</td>
+</tr>
+
+<tr>
+<td>Better performance</td>
+<td>An additional round-trip to database is required</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://www.javacodemonk.com/post/87/difference-between-getone-and-findbyid-in-spring-data-jpa">https://www.javacodemonk.com/post/87/difference-between-getone-and-findbyid-in-spring-data-jpa</a></p>
+
+<p><strong>2. getOne()底层使用的getReference()与findById()底层使用的find()的区别:</strong></p>
+
+<blockquote>
+<p>EntityManager.find() vs EntityManager.getReference()</p>
+</blockquote>
+
+<p><a href="https://stackoverflow.com/questions/1607532/when-to-use-entitymanager-find-vs-entitymanager-getreference-with-jpa">https://stackoverflow.com/questions/1607532/when-to-use-entitymanager-find-vs-entitymanager-getreference-with-jpa</a></p>
+
+<p><strong>3. hibernetes实体实例生命周期与各种状态:</strong></p>
+
+<p>持久化生命周期/实体实例状态</p>
+
+<ul>
+<li>从瞬时（Transient）状态到持久化状态，从而变成orm托管的，需要调用EntityManager#persist()方法，或者创建来自一个已持久化实例的引用以及为所映射关联启用状态级联（Cascade）。</li>
+<li>持久化状态的实体实例具有一个表示形式，它被存储在数据库中，或者在工作单元完成时被存储。什么时候是工作单元完成？这要结合持久化上下文。</li>
+</ul>
+
+<h5 id="4-二级缓存">4. 二级缓存</h5>
+
+<blockquote>
+<p>二级缓存是session间共享的，适用于对象数据频繁共享，数据变化频率低。</p>
+</blockquote>
+
+<ul>
+<li>read-only是只读型，缓存不更新，适用于不发生改变的数据，效率最高，事务隔离级别最低。</li>
+<li>nonstrict-read-write不严格读写型，缓存不定期更新，适用于变化频率低的数据。</li>
+
+<li><p>read-write读写型，缓存在数据变化时触发更新，适用于变化的数据。</p></li>
+
+<li><p>transactional事务型，缓存在数据变化时更新，并且支持事务，效率最低，事务隔离级别最高。</p></li>
+</ul>
+
+<p><strong>5. 问题:</strong></p>
+
+<ul>
+<li>使用findById查出来以后更新没有更新到，过去使用findOne可以更新到</li>
+<li>使用getOne报no-session错误</li>
+<li>在实体copy后想要用，必须<strong>flush()</strong></li>
+<li>必须使用<strong>EAGER</strong>，才能在复制方法中复制关联对象</li>
+<li>一对多多对一关系永远维护在多的一端，如果双向关联，外键可以设置不为空，因为保存时就已经把外键加入了，如果是一对多单向关联，外键必须设置可以为空，因为外键关系是实体保存后更新进去的，另外不仅需要将多的一端手动添加到一的一端的集合里，多的一端也需要手动set一的一端</li>
+<li>报序列化错误是实体里某一个属性的类型hibernete自动解析不了</li>
+<li>EntityGraph 解决N+1问题</li>
+<li>多对多堆栈溢出问题
+
+<ul>
+<li>fetch = FetchType.EAGER 确保某一方的toString方法，不要让他打印被定义方的数据</li>
+<li>使用HashSet不使用ArrayList</li>
+</ul></li>
+</ul>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://fallingyang.github.io">往事随风</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/">https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E4%B8%8D%E5%8C%B9%E9%85%8D/">对象关系模型不匹配</a></li>
+        
+        <li><a href="/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">The little Go Book读书笔记</a></li>
+        
+        <li><a href="/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">Envoy线程模型</a></li>
+        
+        <li><a href="/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/">分布式事务分类（长事务）</a></li>
+        
+        <li><a href="/posts/%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9C%BA%E6%9D%82%E8%B0%88/">工作流与状态机杂谈</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://fallingyang.github.io/tags/ORM">ORM</a></li>
+                                
+                                <li><a href="https://fallingyang.github.io/tags/Hibernate">Hibernate</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "fallingyang/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/</link>
+    <description>Recent content in Tags on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 04 Nov 2019 16:11:45 +0800</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CLOUDNATIVE</title>
+      <link>https://fallingyang.github.io/tags/CLOUDNATIVE/</link>
+      <pubDate>Mon, 04 Nov 2019 16:11:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/CLOUDNATIVE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BUSINESS</title>
+      <link>https://fallingyang.github.io/tags/BUSINESS/</link>
+      <pubDate>Fri, 01 Nov 2019 17:11:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/BUSINESS/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AUTH</title>
+      <link>https://fallingyang.github.io/tags/AUTH/</link>
+      <pubDate>Fri, 18 Oct 2019 15:18:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/AUTH/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OAUTH2</title>
+      <link>https://fallingyang.github.io/tags/OAUTH2/</link>
+      <pubDate>Fri, 18 Oct 2019 15:18:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/OAUTH2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>并发</title>
+      <link>https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/</link>
+      <pubDate>Fri, 10 May 2019 11:30:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GO</title>
+      <link>https://fallingyang.github.io/tags/GO/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/GO/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hibernate</title>
+      <link>https://fallingyang.github.io/tags/Hibernate/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/Hibernate/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ORM</title>
+      <link>https://fallingyang.github.io/tags/ORM/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/ORM/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ENVOY</title>
+      <link>https://fallingyang.github.io/tags/ENVOY/</link>
+      <pubDate>Tue, 25 Dec 2018 11:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/ENVOY/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>服务网格</title>
+      <link>https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/</link>
+      <pubDate>Tue, 25 Dec 2018 11:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>翻译</title>
+      <link>https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/</link>
+      <pubDate>Tue, 25 Dec 2018 11:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DISTRIBUTION</title>
+      <link>https://fallingyang.github.io/tags/DISTRIBUTION/</link>
+      <pubDate>Fri, 23 Nov 2018 10:50:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/DISTRIBUTION/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TRANSACTION</title>
+      <link>https://fallingyang.github.io/tags/TRANSACTION/</link>
+      <pubDate>Fri, 23 Nov 2018 10:50:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/TRANSACTION/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WORKFLOW</title>
+      <link>https://fallingyang.github.io/tags/WORKFLOW/</link>
+      <pubDate>Tue, 23 Oct 2018 22:30:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/WORKFLOW/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EUREKA</title>
+      <link>https://fallingyang.github.io/tags/EUREKA/</link>
+      <pubDate>Wed, 15 Aug 2018 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/EUREKA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LAMBDA</title>
+      <link>https://fallingyang.github.io/tags/LAMBDA/</link>
+      <pubDate>Wed, 23 May 2018 10:50:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/LAMBDA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HYSTRIX</title>
+      <link>https://fallingyang.github.io/tags/HYSTRIX/</link>
+      <pubDate>Tue, 15 May 2018 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/HYSTRIX/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SPRINGCLOUD</title>
+      <link>https://fallingyang.github.io/tags/SPRINGCLOUD/</link>
+      <pubDate>Fri, 22 Dec 2017 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/SPRINGCLOUD/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>微服务</title>
+      <link>https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Fri, 22 Dec 2017 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GENERIC</title>
+      <link>https://fallingyang.github.io/tags/GENERIC/</link>
+      <pubDate>Wed, 21 Jun 2017 19:37:48 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/GENERIC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MYSQL</title>
+      <link>https://fallingyang.github.io/tags/MYSQL/</link>
+      <pubDate>Wed, 21 Jun 2017 19:37:48 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/MYSQL/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>计算机历史</title>
+      <link>https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/</link>
+      <pubDate>Tue, 13 Jun 2017 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MAC</title>
+      <link>https://fallingyang.github.io/tags/MAC/</link>
+      <pubDate>Wed, 12 Apr 2017 21:04:35 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/MAC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SOFTWARE</title>
+      <link>https://fallingyang.github.io/tags/SOFTWARE/</link>
+      <pubDate>Wed, 12 Apr 2017 21:04:35 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/SOFTWARE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>REDIS</title>
+      <link>https://fallingyang.github.io/tags/REDIS/</link>
+      <pubDate>Fri, 10 Feb 2017 18:13:34 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/REDIS/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LINUX</title>
+      <link>https://fallingyang.github.io/tags/LINUX/</link>
+      <pubDate>Tue, 07 Feb 2017 00:06:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/tags/LINUX/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

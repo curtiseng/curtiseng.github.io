@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GO on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/GO/</link>
+    <description>Recent content in GO on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 13 Mar 2019 10:46:34 +0000</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/GO/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The little Go Book读书笔记</title>
+      <link>https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <description>一、基础知识 go是一种编译型、具有静态类型和类c风格语法的语言，并具备垃圾回收机制。go语言的语法相对于c来说更加简洁，结尾没有分号，if、for等条件可以省略括号，while可以用for来表示。go的变量声明类型在变量名后边，这样设计的原因可以在go blog中找到，变量有默认值，也可以使用:=来自动推断类型。在GoPL一书里推荐使用显式的var power int = 0来取代默认值，同时也可以在不太关注类型的局部函数里，使用推断类型power := 0。:=必须使用在新变量上，之后只能用=来赋值，同时go支持多个变量同时赋值。go函数实现了柯里化，容许返回多个值，如果返回值中有用不到的值，你可以将他赋给_，这表示一个空白标示符。在CNGo里， 介绍了常用的Go模式之一就是定义一个函数，同时返回一个值和一个错误值，如果函数没有出错，错误值就是nil,还需要注意的是返回值的名称只在函数定义的范围内有效。go函数多个参数类型一样时，也可以使用简略写法func add (a, b int) int {...}。
+二、结构体 go不是一个面向对象的语言，它没有对象和继承的概念，因此也没有面向对象语言的特性如多态和重载。go提供了结构体，并且可以将一些方法和结构体关联，结构体在赋值时每个等式后都要加,，即使是最后一个等式。在go语言中，函数的参数传递是按值传递的，所以我们可以使用指针来改变原参数的值。在go语言中，使用组合来来代替继承，go语言中的组合调用十分简洁，组合体可以直接调用子体的方法。而且因为匿名组合是一种编译技巧，我们能“重写”一个组合子体的方法，但为了区分子体的方法，调用子体方法时就需要指定子体s.Person.Introduce()。</description>
+    </item>
+    
+  </channel>
+</rss>

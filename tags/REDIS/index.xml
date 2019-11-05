@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>REDIS on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/REDIS/</link>
+    <description>Recent content in REDIS on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 10 Feb 2017 18:13:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/REDIS/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac下安装Redis的两种方法</title>
+      <link>https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 10 Feb 2017 18:13:34 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>本文主要介绍了redis的安装方法，以及redis的配置、Python客户端模块的安装。
+ 第一种方法：  OS X系统上面已经安装了Xcode，使用Xcode编译redis二进制文件
+ 下载源码并build redis $ curl -O http://download.redis.io/releases/redis-3.2.7.tar.gz $ tar -zxvf redis-3.2.7.tar.gz $ cd redis-3.2.7 $ make test $ make  注：当前时间Redis稳定版本为3.2.7。
+搭建redis服务器 $ mkdir -p /usr/local/redis/{conf,data,bin,log} $ mv src/redis-server src/redis-cli src/redis-sentinel src/redis-check-dump src/redis-benchmark src/redis-check-aof /usr/local/redis/bin $ cp redis.conf /usr/local/redis/conf/6379.conf  安装redis的Python客户端 $ mkdir ~/Workspace/python/redis_demo $ cd ~/Workspace/python/redis_demo $ pip install redis $ touch demo.py  注：pip安装方法:http://pip-cn.readthedocs.io/en/latest/installing.html。
+redis服务器的启动 $ cd /usr/local/redis/bin $ ./redis-server .</description>
+    </item>
+    
+  </channel>
+</rss>

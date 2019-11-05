@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MYSQL | 往事随风的博客</title>
+    <meta property="og:title" content="MYSQL - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="MYSQL">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/tags/MYSQL/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="https://fallingyang.github.io/tags/MYSQL/index.xml" title="往事随风的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    
+                    <h3 class="archive-title">
+                        包含标签
+                        <span class="keyword">MYSQL</span>
+                        的文章
+                    </h3>
+                    
+
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Mysql学习笔记</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2017年6月21日
+                            </date>
+                            
+                            <div class="post-content">
+                                1. MySql 逻辑架构 1.1 三层结构  最上层不是mysql独有的，大多数基于网络的客户端／服务器的工具或者服务都有类似的架构。比如连接处理、授权认证、安全等等。 第二层是MySql比较有意思的部分。大多数MySql的核心服务功能都在这一层，包括查询解析、分析、优化、缓存以及所有的内置函数（例如：日期、时间、数学和加密函数），所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等。 第三层包含了存储引擎。存储引擎主要负责MySql中数据的存储和提取。不同存储引擎都有各自的优势和劣势。服务器通过API与存储引擎进行通信。这些API屏蔽了不同存储引擎之间的差异，使得这些差异对上层的查询过程透明。存储引擎包含几十个底层函数，用于执行诸如“开始一个事物”或者“根据主键提取一行记录”等操作。但存储引擎不会去解析SQL(除了InnoDB，它会解析外键，因为MySql服务器本身没有实现该功能),不同存储引擎之间也不会相互通信，而只是简单的响应上层服务器的请求。  1.2 连接管理与安全性 每个客户端连接都会在服务器进程中拥有一个线程，这个连接的查询只会在这个单独的线程中执行，该线程只能轮流在某个CPU核心或者CPU中运行。服务器会负责缓存线程，因此不需要为每一个新建的连接创建或销毁线程。
+客户端连接服务器需要认证，认证基于用户名、主机信息和密码。也可以使用安全套接字（SSL）的方式连接，还可以使用X.509证书认证，连接成功会验证权限。
+1.3 优化与执行 MySql会在解析查询，并创建内部数据结构，然后对其进行优化，包括重写查询、决定表的读取顺序，以及选择合适的索引等。
+对于select语句，在解析查询之前会先检查查询缓存。
+2.并发控制  多个查询需要同一时刻修改数据，都会产生并发控制的问题，并发控制在两个层面，数据库服务器层和存储引擎层。
+尽管存储引擎可以管理自己的锁，MySQL数据库服务器本身还是会使用各种有效的表锁来实现不同的目的。例如：服务器会为诸如ALTER TABLE之类的语句使用表锁，而忽略存储引擎的锁机制。
+ 2.1 读写锁  读锁：又叫共享锁，读锁是共享的，或者说是相互不阻塞的，多个客户端可以在同一时刻读取同一个资源，而互不干扰。 写锁：又叫排他锁，它是排他的，也就是说一个写锁会阻塞其他的写锁和读锁。 写锁比读锁有更高的优先级，一个写锁请求可能会被插入到读锁队列的前面。  2.2 锁粒度  申引：锁策略就是在锁的开销和数据的安全性之间寻找平衡，这种平衡也会影响性能。
+  表锁（table lock）  表锁是MySql中最基本的锁策略，也是开销最小的策略。表锁会锁定整张表。
+ 行级锁（row lock）  行级锁可以最大程度地支持并发处理（同时也带来了最大的锁开销）。InnoDB和XtraDB实现了行级锁。行级锁只在存储引擎层实现，没有在MySql服务器层实现。
+3.事务  什么是事务？事务的标准特性（ACID）是什么？大家都知道。
+一个实现了ACID的数据库，相比没有实现ACID的数据库，通常会需要更强的CPU、更大的内存和更多的磁盘。
+ 3.1 隔离级别  数据库中实现事务隔离有两种方式：一种是读取数据前，对其加锁，阻止其他事务对数据进行修改；另一种是数据库多版本并发控制（MVCC或MCC）。
+  READ UNCOMMITED(为提交读) READ COMMITED(提交读) REPEATABLE READ(可重复读) SERIALIZABLE(可串行化)  3.2 事务并发引发的问题  更新丢失：当两个或多个事务选择同一行，然后基于最初选定的值更新该行时，由于每个事务都不知道其他事务的存在，就会发生丢失更新问题。最后的更新覆盖了由其他事务所做的更新。 脏读：一个事务对一条数据进行修改，提交前，另一个事务也来对这条数据进行操作，而这条数据处于不一致状态。如果不加控制，第二事务就读取了这些“脏”数据。 不可重复读：一个事务在读取某些数据后的某个时间，再次读取之前读过的数据，发现其读出的数据已经发生了改变或者已经被删除了。 幻读：一个事务按相同的查询条件重新读取以前检索过的数据，却发现其他事务插入了满足其查询条件的新数据。 死锁：两个或者多个事务在同一资源上相互占用，并请求锁定对方占用的资源，从而导致恶性循环。  3.……
+                                <p class="readmore"><a href="https://fallingyang.github.io/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+
+                    
+
+
+
+
+
+                </div>
+            </div>
+
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+
+</body>
+</html>

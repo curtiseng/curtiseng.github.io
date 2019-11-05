@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CLOUDNATIVE | 往事随风的博客</title>
+    <meta property="og:title" content="CLOUDNATIVE - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="CLOUDNATIVE">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/tags/CLOUDNATIVE/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="https://fallingyang.github.io/tags/CLOUDNATIVE/index.xml" title="往事随风的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    
+                    <h3 class="archive-title">
+                        包含标签
+                        <span class="keyword">CLOUDNATIVE</span>
+                        的文章
+                    </h3>
+                    
+
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/">envoy与hystrix熔断比较</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月4日
+                            </date>
+                            
+                            <div class="post-content">
+                                envoy有更好的熔断策略
+hystrix有更精确的控制以及fallback操作
+但这些都可以弥补，如精确的路由操作以及在方法的异常内处理fallback操作……
+                                <p class="readmore"><a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/">云原生参会记录2019</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年6月27日
+                            </date>
+                            
+                            <div class="post-content">
+                                ###1. workshop
+ 基于 SOFAStack 快速构建微服务  本地演示通过SOFARPC实现服务间调用。
+ 金融场景下的分布式事务最佳实践  分布式事务主要实现了AT和TCC两种场景，Seata项目正在实现XA和SAGA模式的分布式事务。
+ 基于 Kubernetes 的云原生部署体验  上述demo在SOFACloud的部署与发布。
+ 云上的 Service Mesh 基本使用场景体验  蚂蚁金服的Cloud Mesh产品体验，实现零侵入的服务链路监控，以及灰度发布。
+ 基于 Serverless 轻松构建云上应用  蚂蚁金服对于Serverless的理解为一切皆可Serverless。
+2. 技术演讲  部署 Harbor 和管理 Harbor Helm Charts 的真实实践与如何轻松地重复启动 Helm Chart 安装过程：
+ 可使用向导来呈现安装 Chart 时的设置验证（values.yaml）；
+ 相应 Chart 设置的值集将作为 Chart 部署配置保留，以备将来重用；
+ 可以在存储库中管理 Chart 安装的 Chart 部署配置，以进行区分、复制和重用。
+  惠普使用Istio和OPA实现不同级别服务的Access Control。第一级别的服务大部分来自第三方服务，无法对服务进行代码级别的权限控制，在这一级别的服务我们使用Istio的服务级别的权限控制，Istio服务级别的权限控制使用的是Kubernetes自身的RBAC特性；第二级别服务就是业务中比较公共的服务，这些服务在不同的场景下有不同的权限控制，我们使用OPA来实现基于策略的访问控制(基于属性的访问控制)，基于策略的权限控制可以很灵活的更改。
+ 降低SCF托管应用的冷启动，主要分为三个方面，一个是降低冷启动时延，优化调度、容器启动、代码拉取，同时更改容器网络实现。二是避免冷启动，实时预测，平衡资源和延迟，对于调用链路上的函数，感知后提前启动，经过以上优化，降低到0.0X的冷启动率。三是灰度切换，提前预知。关于网络优化主要是创建SCF网络代理，在创建容器时同时创建网卡代理，对比传统创建容器后初始化网卡更加快速。
+ AWS分享Java程序员的Kubernetes之旅(github)：……
+                                <p class="readmore"><a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+
+                    
+
+
+
+
+
+                </div>
+            </div>
+
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+
+</body>
+</html>

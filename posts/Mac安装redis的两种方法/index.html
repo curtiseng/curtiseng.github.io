@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Mac下安装Redis的两种方法 | 往事随风的博客</title>
+    <meta property="og:title" content="Mac下安装Redis的两种方法 - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2017-02-10T18:13:34&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2017-02-10T18:13:34&#43;08:00">
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="Mac下安装Redis的两种方法">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        <div id="virtual_toc_list" style="display: none">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#第一种方法">第一种方法：</a>
+<ul>
+<li><a href="#下载源码并build-redis">下载源码并build redis</a></li>
+<li><a href="#搭建redis服务器">搭建redis服务器</a></li>
+<li><a href="#安装redis的python客户端">安装redis的Python客户端</a></li>
+<li><a href="#redis服务器的启动">redis服务器的启动</a></li>
+</ul></li>
+<li><a href="#第二种方法">第二种方法</a>
+<ul>
+<li><a href="#安装rudix">安装rudix</a></li>
+<li><a href="#安装redis">安装redis</a></li>
+<li><a href="#安装redis的python客户端-1">安装redis的Python客户端</a></li>
+</ul></li>
+<li><a href="#修改redis启动配置">修改redis启动配置</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+        
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                 
+                height: auto;
+                font-size: 13px;
+            }
+        
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let tocNavElem = document.getElementById("TableOfContents");
+                let floatTocDivElem = document.getElementById("float_toc_div");
+                let tocListElem = floatTocDivElem.getElementsByTagName('div')[0];
+                let colGroupElem = document.getElementById("body").getElementsByClassName("col-group")[0]
+                let floatTocWidth = (document.body.clientWidth - colGroupElem.offsetWidth) / 2 - 16;
+                var useFloatToc = false;
+
+                if (floatTocWidth >= 100) {
+                    useFloatToc = true;
+                    document.getElementById("toc_list").appendChild(tocNavElem);
+                    floatTocDivElem.style.display = 'block';
+                    floatTocDivElem.style.width = floatTocWidth + 'px';
+                    top();
+                    floatTocDivElem.style.left = '0px';
+
+                    function top() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.top = window.innerHeight / 9 + 'px';
+                        }
+                    }
+
+                    function ishide() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.display = 'block';
+                        }
+                    }
+
+                    window.onscroll = function () {
+                        ishide();
+                        if ((document.documentElement.scrollTop != 0) && (floatTocDivElem.style.display == 'block')) {
+                            top();
+                        }
+                    };
+
+                    window.onresize = function () {
+                        ishide();
+                    }
+
+                    document.getElementById("toc_btn_open").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "none":
+                                document.getElementById("toc_btn_close").style.display = "";
+                                tocListElem.style.display = "";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "1px solid gray";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+
+                    document.getElementById("toc_btn_close").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "":
+                                document.getElementById("toc_btn_close").style.display = "none";
+                                tocListElem.style.display = "none";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+                } else {
+                    let fixedTocElem = document.getElementsByClassName("toc-article")[0];
+                    fixedTocElem.appendChild(tocNavElem);
+                    fixedTocElem.parentElement.style.display = "";
+                }
+                document.getElementById("virtual_toc_list").remove();
+            };   
+        </script>
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Mac下安装Redis的两种方法</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2017年2月10日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear" style="display: none">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<blockquote>
+<p>本文主要介绍了redis的安装方法，以及redis的配置、Python客户端模块的安装。</p>
+</blockquote>
+
+<h3 id="第一种方法">第一种方法：</h3>
+
+<blockquote>
+<p>OS X系统上面已经安装了Xcode，使用Xcode编译redis二进制文件</p>
+</blockquote>
+
+<h4 id="下载源码并build-redis">下载源码并build redis</h4>
+
+<pre><code>$ curl -O http://download.redis.io/releases/redis-3.2.7.tar.gz
+$ tar -zxvf redis-3.2.7.tar.gz
+$ cd redis-3.2.7
+$ make test
+$ make
+</code></pre>
+
+<p>注：当前时间Redis稳定版本为3.2.7。</p>
+
+<h4 id="搭建redis服务器">搭建redis服务器</h4>
+
+<pre><code>$ mkdir -p /usr/local/redis/{conf,data,bin,log}
+$ mv src/redis-server src/redis-cli src/redis-sentinel src/redis-check-dump src/redis-benchmark src/redis-check-aof /usr/local/redis/bin
+$ cp redis.conf /usr/local/redis/conf/6379.conf
+</code></pre>
+
+<h4 id="安装redis的python客户端">安装redis的Python客户端</h4>
+
+<pre><code>$ mkdir ~/Workspace/python/redis_demo
+$ cd ~/Workspace/python/redis_demo
+$ pip install redis
+$ touch demo.py
+</code></pre>
+
+<p>注：pip安装方法:<a href="http://pip-cn.readthedocs.io/en/latest/installing.html。">http://pip-cn.readthedocs.io/en/latest/installing.html。</a></p>
+
+<h4 id="redis服务器的启动">redis服务器的启动</h4>
+
+<pre><code>$ cd /usr/local/redis/bin
+$ ./redis-server ../conf/6379.conf
+</code></pre>
+
+<h3 id="第二种方法">第二种方法</h3>
+
+<blockquote>
+<p>使用rudix(<a href="http://rudix.org/">http://rudix.org/</a>) 安装redis</p>
+</blockquote>
+
+<h4 id="安装rudix">安装rudix</h4>
+
+<blockquote>
+<p>rudix is a collection of pre-built Unix-like software delivered as packages for Macintoshes.
+rudix可以直接以预编译二进制的形式安装各式各样的软件，有哪些软件可以查看rudix在github上的项目：<a href="https://github.com/rudix-mac/rudix">https://github.com/rudix-mac/rudix</a></p>
+</blockquote>
+
+<p>Quick Start
+There is two ways to have the Rudix Package manager installed. You can download the proper package and install it from packages &gt; rudix or you can bootstrap by using the command line.</p>
+
+<p>Just open the Terminal.app and type:</p>
+
+<pre><code> $ curl -O https://raw.githubusercontent.com/rudix-mac/rpm/2016.12.13/rudix.py
+ $ sudo python rudix.py install rudix
+</code></pre>
+
+<p>or even compressed in one-line:</p>
+
+<pre><code>curl -s https://raw.githubusercontent.com/rudix-mac/rpm/2016.12.13/rudix.py | sudo python - install rudix
+</code></pre>
+
+<h4 id="安装redis">安装redis</h4>
+
+<pre><code>$ sudo rudix install redis
+</code></pre>
+
+<p>注：这个时间redis官方最新稳定版为3.2.7，但rudix默认的是3.0.3，rudix默认版本可以在github上看到。</p>
+
+<h4 id="安装redis的python客户端-1">安装redis的Python客户端</h4>
+
+<pre><code>$ sudo rudix install pip
+$ sudo pip install redis
+</code></pre>
+
+<h3 id="修改redis启动配置">修改redis启动配置</h3>
+
+<pre><code>$ vi /usr/local/redis/conf/6379.conf
+
+#更改 6379.conf 中的内容如下
+################################ GENERAL  #####################################
+# 设置为后台运行
+daemonize yes
+
+# 设置pid文件位置
+pidfile /usr/local/redis/redis.pid
+
+# 配置默认端口号
+port 6379
+
+# TCP listen() backlog
+tcp-backlog 511
+
+# 连接超时时间设置为120秒
+timeout 120
+
+# TCP keepalive.
+tcp-keepalive 0
+
+# Specify the server verbosity level.
+# This can be one of:
+# debug (a lot of information, useful for development/testing)
+# verbose (many rarely useful info, but not a mess like the debug level)
+# notice (moderately verbose, what you want in production probably)
+# warning (only very important / critical messages are logged)
+# 设置日志级别
+loglevel debug
+
+# 设置日志文件位置
+logfile &quot;/usr/local/redis/log/6379.log&quot;
+
+# 设置数据库个数为 16个
+databases 16
+
+################################ SNAPSHOTTING  ################################
+# 快照的存储方式: 时间 更新次数
+save 900 1
+save 300 10
+save 60 10000
+
+stop-writes-on-bgsave-error yes
+
+rdbcompression yes
+
+rdbchecksum yes
+
+# 数据文件名
+dbfilename dump.rdb
+
+# 数据文件所在目录
+dir /usr/local/redis/data/6379
+
+################################# REPLICATION #################################
+slave-serve-stale-data yes
+slave-read-only yes
+repl-diskless-sync no
+repl-diskless-sync-delay 5
+repl-disable-tcp-nodelay no
+slave-priority 100
+################################## SECURITY ###################################
+appendonly no
+
+appendfilename &quot;appendonly.aof&quot;
+
+# appendfsync always
+appendfsync everysec
+# appendfsync no
+
+no-appendfsync-on-rewrite no
+
+auto-aof-rewrite-percentage 100
+
+auto-aof-rewrite-min-size 64mb
+
+aof-load-truncated yes
+
+################################ LUA SCRIPTING  ###############################
+lua-time-limit 5000
+
+################################## SLOW LOG ###################################
+
+slowlog-log-slower-than 10000
+
+slowlog-max-len 128
+
+################################ LATENCY MONITOR ##############################
+
+latency-monitor-threshold 0
+
+############################# EVENT NOTIFICATION ##############################
+
+notify-keyspace-events &quot;&quot;
+
+############################### ADVANCED CONFIG ###############################
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+
+list-max-ziplist-entries 512
+list-max-ziplist-value 64
+
+set-max-intset-entries 512
+
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+
+hll-sparse-max-bytes 3000
+
+activerehashing yes
+
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 256mb 64mb 60
+client-output-buffer-limit pubsub 32mb 8mb 60
+
+hz 10
+
+aof-rewrite-incremental-fsync yes
+</code></pre>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://fallingyang.github.io">往事随风</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/">https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/Linux%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/">Linux命令备忘录</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="/archives/">归档</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://fallingyang.github.io/tags/REDIS">REDIS</a></li>
+                                
+                                <li><a href="https://fallingyang.github.io/tags/MAC">MAC</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "fallingyang/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

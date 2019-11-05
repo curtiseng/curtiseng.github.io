@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Java范型 | 往事随风的博客</title>
+    <meta property="og:title" content="Java范型 - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2017-06-21T19:37:48&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2017-06-21T19:37:48&#43;08:00">
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="Java范型">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        <div id="virtual_toc_list" style="display: none">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#范型方法-generic-method">范型方法(GENERIC METHOD)</a></li>
+<li><a href="#范型类-generic-class">范型类(GENERIC CLASS)</a></li>
+<li><a href="#范型接口-generic-interface">范型接口(GENERIC INTERFACE)</a></li>
+<li><a href="#类型推导">类型推导</a></li>
+<li><a href="#泛型标识与泛型通配符">泛型标识与泛型通配符</a></li>
+<li><a href="#可变参数">可变参数</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+        
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                 
+                height: auto;
+                font-size: 13px;
+            }
+        
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let tocNavElem = document.getElementById("TableOfContents");
+                let floatTocDivElem = document.getElementById("float_toc_div");
+                let tocListElem = floatTocDivElem.getElementsByTagName('div')[0];
+                let colGroupElem = document.getElementById("body").getElementsByClassName("col-group")[0]
+                let floatTocWidth = (document.body.clientWidth - colGroupElem.offsetWidth) / 2 - 16;
+                var useFloatToc = false;
+
+                if (floatTocWidth >= 100) {
+                    useFloatToc = true;
+                    document.getElementById("toc_list").appendChild(tocNavElem);
+                    floatTocDivElem.style.display = 'block';
+                    floatTocDivElem.style.width = floatTocWidth + 'px';
+                    top();
+                    floatTocDivElem.style.left = '0px';
+
+                    function top() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.top = window.innerHeight / 9 + 'px';
+                        }
+                    }
+
+                    function ishide() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.display = 'block';
+                        }
+                    }
+
+                    window.onscroll = function () {
+                        ishide();
+                        if ((document.documentElement.scrollTop != 0) && (floatTocDivElem.style.display == 'block')) {
+                            top();
+                        }
+                    };
+
+                    window.onresize = function () {
+                        ishide();
+                    }
+
+                    document.getElementById("toc_btn_open").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "none":
+                                document.getElementById("toc_btn_close").style.display = "";
+                                tocListElem.style.display = "";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "1px solid gray";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+
+                    document.getElementById("toc_btn_close").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "":
+                                document.getElementById("toc_btn_close").style.display = "none";
+                                tocListElem.style.display = "none";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+                } else {
+                    let fixedTocElem = document.getElementsByClassName("toc-article")[0];
+                    fixedTocElem.appendChild(tocNavElem);
+                    fixedTocElem.parentElement.style.display = "";
+                }
+                document.getElementById("virtual_toc_list").remove();
+            };   
+        </script>
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Java范型</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2017年6月21日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear" style="display: none">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h4 id="范型方法-generic-method">范型方法(GENERIC METHOD)</h4>
+
+<pre><code class="language-java">[权限] [修饰符] [泛型] [返回值] [方法名]  (    [参数列表]   ) {}
+public static  &lt; E &gt;   void   printArray( E[] inputArray ) {}
+</code></pre>
+
+<h4 id="范型类-generic-class">范型类(GENERIC CLASS)</h4>
+
+<p>泛型类和普通类的声明一样，只是在类名后面加上了类型表示。就像泛型方法，泛型类可以有一个或多个类型表示，用逗号进行分隔</p>
+
+<h4 id="范型接口-generic-interface">范型接口(GENERIC INTERFACE)</h4>
+
+<p>泛型接口是在声明接口的时候指定，类在继承接口的时候需要补充泛型类型，可以实现泛型接口的时候不指名泛型类型，这样这个类就需要定义为泛型类</p>
+
+<h4 id="类型推导">类型推导</h4>
+
+<p>以声明键值对的例子来说，通常的写法会有一长串，不免有些痛苦</p>
+
+<pre><code class="language-java">Map&lt;String, List&lt;String&gt;&gt; m = new HashMap&lt;String, List&lt;String&gt;&gt;();
+</code></pre>
+
+<p>在JavaSE1.6之后，可以省略后面的范型</p>
+
+<pre><code class="language-java">Map&lt;String, List&lt;String&gt;&gt; m = new HashMap&lt;&gt;();
+</code></pre>
+
+<p>还可以构造一个泛型方法作为静态工厂，来完成这一操作</p>
+
+<pre><code class="language-java">public static &lt;K, V&gt; HashMap&lt;K, V&gt; newInstance() {
+  return new HashMap&lt;K, V&gt;();
+}
+Map&lt;String, List&lt;String&gt;&gt; m = newInstance();
+</code></pre>
+
+<h4 id="泛型标识与泛型通配符">泛型标识与泛型通配符</h4>
+
+<p>标识规范</p>
+
+<pre><code>E - Element (在集合中使用，因为集合中存放的是元素)
+T - Type（Java 类）
+K - Key（键）
+V - Value（值）
+N - Number（数值类型）
+? - 表示不确定的java类型
+S、U、V - 2nd、3rd、4th types
+</code></pre>
+
+<p>任意类型 &lt;?&gt;</p>
+
+<blockquote>
+<p>可以理解为泛型中的 Object，为什么这么说呢？因为任意类型的通配符可以接受任意类型的泛型。</p>
+</blockquote>
+
+<p>下面的例子表示出了这种关系:</p>
+
+<pre><code class="language-java">Box&lt;?&gt; box = new Box&lt;String&gt;();
+</code></pre>
+
+<p>类似于将后面的类型转换到前面的类型。但是&lt;?&gt;只能用作接收，不能用来定义。</p>
+
+<p>下面的例子是错误的：</p>
+
+<pre><code class="language-java">class Box&lt;?&gt; {} //错误的泛型类定义
+public static &lt;?&gt; void sayHello(? helloString) {} //错误的泛型方法定义
+interface Box&lt;?&gt; {} //错误的泛型接口定义
+</code></pre>
+
+<p>上限类型 &lt;? extends 类&gt;</p>
+
+<blockquote>
+<p>&lt;? extends 类&gt; 表示泛型只能使用这个类或这个类的子类。</p>
+</blockquote>
+
+<p>下限类型 &lt;? super 类&gt;</p>
+
+<blockquote>
+<p>同上限方法，&lt;? super 类&gt; 表示泛型只能使用这个类或这个类的父类</p>
+</blockquote>
+
+<h4 id="可变参数">可变参数</h4>
+
+<pre><code class="language-java">public class Main {
+  public static &lt;T&gt; void out(T... args) {
+    for (T t : args) {
+      System.out.println(t);
+    }
+  }
+  public static void main(String[] args) {
+    out(&quot;findingsea&quot;, 123, 11.11, true);
+  }
+}
+</code></pre>
+
+<p>原文链接：<a href="http://www.qiuchengjia.cn/2016/08/03/JAVA/Java%E6%B3%9B%E5%9E%8B/">http://www.qiuchengjia.cn/2016/08/03/JAVA/Java%E6%B3%9B%E5%9E%8B/</a></p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://fallingyang.github.io">往事随风</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/">https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Mysql学习笔记</a></li>
+        
+        <li><a href="/posts/%E7%A1%85%E8%B0%B7%E7%99%BE%E5%B9%B4%E5%8F%B2%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">硅谷百年史读书笔记</a></li>
+        
+        <li><a href="/posts/MacPortsHomeBrewFink/">MacPorts,HomeBrew,Fink</a></li>
+        
+        <li><a href="/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/">Mac下安装Redis的两种方法</a></li>
+        
+        <li><a href="/posts/Linux%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/">Linux命令备忘录</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://fallingyang.github.io/tags/GENERIC">GENERIC</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "fallingyang/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

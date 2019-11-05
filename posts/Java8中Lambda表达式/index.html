@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Java8中Lambda表达式 | 往事随风的博客</title>
+    <meta property="og:title" content="Java8中Lambda表达式 - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2018-05-23T10:50:29&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2018-05-23T10:50:29&#43;08:00">
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="Java8中Lambda表达式">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/posts/Java8%E4%B8%ADLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        <div id="virtual_toc_list" style="display: none">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-什么是lambda-λ-表达式">1. 什么是Lambda(λ)表达式</a></li>
+<li><a href="#2-为什么将lambda表达式添加到java">2. 为什么将lambda表达式添加到java？</a></li>
+<li><a href="#3-什么是functional-interface-函数式接口">3. 什么是functional interface（函数式接口）?</a></li>
+<li><a href="#4-lambda表达式的类型是什么">4. lambda表达式的类型是什么？</a></li>
+<li><a href="#5-lambda表达式是对象吗">5. lambda表达式是对象吗？</a></li>
+<li><a href="#6-lambda表达式可以在哪里使用">6. lambda表达式可以在哪里使用？</a></li>
+<li><a href="#7-lambda表达式的作用域">7. lambda表达式的作用域</a></li>
+<li><a href="#8-业务上常用到lambda的地方">8. 业务上常用到lambda的地方</a></li>
+<li><a href="#9-杂项">9. 杂项</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+        
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                 
+                height: auto;
+                font-size: 13px;
+            }
+        
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let tocNavElem = document.getElementById("TableOfContents");
+                let floatTocDivElem = document.getElementById("float_toc_div");
+                let tocListElem = floatTocDivElem.getElementsByTagName('div')[0];
+                let colGroupElem = document.getElementById("body").getElementsByClassName("col-group")[0]
+                let floatTocWidth = (document.body.clientWidth - colGroupElem.offsetWidth) / 2 - 16;
+                var useFloatToc = false;
+
+                if (floatTocWidth >= 100) {
+                    useFloatToc = true;
+                    document.getElementById("toc_list").appendChild(tocNavElem);
+                    floatTocDivElem.style.display = 'block';
+                    floatTocDivElem.style.width = floatTocWidth + 'px';
+                    top();
+                    floatTocDivElem.style.left = '0px';
+
+                    function top() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.top = window.innerHeight / 9 + 'px';
+                        }
+                    }
+
+                    function ishide() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.display = 'block';
+                        }
+                    }
+
+                    window.onscroll = function () {
+                        ishide();
+                        if ((document.documentElement.scrollTop != 0) && (floatTocDivElem.style.display == 'block')) {
+                            top();
+                        }
+                    };
+
+                    window.onresize = function () {
+                        ishide();
+                    }
+
+                    document.getElementById("toc_btn_open").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "none":
+                                document.getElementById("toc_btn_close").style.display = "";
+                                tocListElem.style.display = "";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "1px solid gray";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+
+                    document.getElementById("toc_btn_close").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "":
+                                document.getElementById("toc_btn_close").style.display = "none";
+                                tocListElem.style.display = "none";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+                } else {
+                    let fixedTocElem = document.getElementsByClassName("toc-article")[0];
+                    fixedTocElem.appendChild(tocNavElem);
+                    fixedTocElem.parentElement.style.display = "";
+                }
+                document.getElementById("virtual_toc_list").remove();
+            };   
+        </script>
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Java8中Lambda表达式</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2018年5月23日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear" style="display: none">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h4 id="1-什么是lambda-λ-表达式">1. 什么是Lambda(λ)表达式</h4>
+
+<p>在数学运算和一般计算中，lambda表达式是一个函数：对于某些输入值或者所有的输入值，有确定的输出值。java使用lambda表达式为自己引入了函数(java只支持方法)。使用传统的java术语解释，lambda可以被理解为具有更简洁语法的匿名方法，这个匿名方法可以省略修饰符，返回类型，某些情况下，参数类型也可以省略。</p>
+
+<ul>
+<li><p>lambda语法</p>
+
+<pre><code>(parameters) -&gt; expression
+(parameters) -&gt; { statements; }
+</code></pre></li>
+
+<li><p>例子</p>
+
+<pre><code>// 输入两个整数，返回他们的和
+1. (int x, int y) -&gt; x + y
+// 输入两个值，返回他们的差
+2. (x, y) -&gt; x - y 
+// 没有输入，返回42
+3. () -&gt; 42
+// 输入一个字符串，打印他到控制台，返回为空
+4. (String s) -&gt; System.out.println(s)
+// 输入一个值，返回doubling x
+5. x -&gt; 2 * x 
+// 输入一个collection，清空他，并返回清空前的size
+6. c -&gt; { int s = c.size(); c.clear(); return s; }
+</code></pre></li>
+
+<li><p>语法说明</p>
+
+<ul>
+<li>参数类型可以显示声明（如1、4）或者隐式推断（如2、5、6）。声明和推断不能在单个lambda表达式中混合使用。</li>
+<li>body可以是代码块（使用大括号包裹，如6）或者表达式（如1、5）。代码块可以有返回值也可以什么都不返回（与void兼容）。</li>
+<li>如果body是一个表达式，他只能<strong>返回一个值</strong>（如1、2、3、5）或什么都不返回。</li>
+<li>如果只有一个隐式推断类型的参数，可以省略括号（如5、6）。</li>
+<li>对于例子6，意味着lambda可以用在collection上，因为collection实现了Function接口。那么同样的，如果还有一个类实现了Function接口，且实现了相同参数和返回类型的size和clear方法，那lambda表达式如何区分当前的c是collection呢，这里是根据代码的上下文来做推断的。</li>
+</ul></li>
+</ul>
+
+<h4 id="2-为什么将lambda表达式添加到java">2. 为什么将lambda表达式添加到java？</h4>
+
+<p>Lambda表达式（闭包）是许多现代编程语言的时髦特征。抛开为了时髦，java引入lambda表达式最紧迫的原因是简化在多线程中集合的分发处理。在之前，lists和sets的处理通常由java开发人员自己从collection中获取一个iterator，然后使用iterator迭代并处理每一个元素。如果想要并行处理，只能由java开发人员自己写并行逻辑。</p>
+
+<p>在java8中，我们的目的是不再是collection为开发人员提供方法，而是开发人员为collection提供函数，并使用函数来对collection中的元素做处理。此更改带来的优势是collection现在可以在内部组织自己的迭代，同时也可以处理并行化，这样就将并行处理的责任从开发人员转移到了java类库中。</p>
+
+<p>但是，开发人员想要利用这一点，需要有一种向collection提供函数的简单方法。在lambda之前，执行此操作的标准做法是传入适当的匿名类实现。但是，定义匿名内部类的语法太过笨拙，无法实现简单的目的。</p>
+
+<p>例如，collection上的forEach方法获取Consumer接口的实例并为每一个元素调用accept方法：</p>
+
+<pre><code class="language-java">interface Consumer&lt;T&gt; { void accept(T t); }
+</code></pre>
+
+<p>假设我们想要用forEach转置每个Point的坐标x和y。使用匿名内部类实现，我们将使用Consumer传递转置函数，如下：</p>
+
+<pre><code class="language-java">pointList.forEach(new Consumer&lt;Point&gt;() {
+    public void accept(Point p) {
+        p.move(p.y, p.x);
+    }
+});
+</code></pre>
+
+<p>如果使用lambda，可以十分简洁的实现相同的效果：</p>
+
+<pre><code class="language-java">pointList.forEach(p -&gt; p.move(p.y, p.x));
+</code></pre>
+
+<h4 id="3-什么是functional-interface-函数式接口">3. 什么是functional interface（函数式接口）?</h4>
+
+<blockquote>
+<p>Informally, a functional interface is one whose type can be used for a method parameter when a lambda is to be supplied as the actual argument.</p>
+</blockquote>
+
+<p>非正式的讲，当函数式接口被一个lambda实现时，他可以被作为一个方参数传入到方法中，这个参数的类型就是functional interface.</p>
+
+<p>例如，collection中的forEach方法的方法签名如下：</p>
+
+<pre><code class="language-java">public void forEach(Consumer&lt;? super T&gt; consumer);
+</code></pre>
+
+<p>要使用forEach方法必须实现Consumer中的单个方法。这个实现可能是一个lambda表达式；如果是，这个表达式就被应用到调用这个方法的地方。以这种方式，lambda表达式只能替换一个接口方法。因此，接口只有单个方法时（不包括default、static修饰的方法以及覆写Object的方法），才能使用lambda表达式实现接口而且不产生歧义。</p>
+
+<p>更确切的说，函数式接口被定义为恰好有一个显式声明的抽象方法的接口。这就是为什么函数式接口在过去被称为单抽象方法(ASM)接口，这个术语有时仍然可见。</p>
+
+<ul>
+<li><p>例子: java类库中有如下（部分常见）是根据上述定义的函数式接口：</p>
+
+<pre><code class="language-java">public interface Runnable { void run(); } 
+public interface Callable&lt;V&gt; { V call() throws Exception; } 
+public interface ActionListener { void actionPerformed(ActionEvent e); } 
+public interface Comparator&lt;T&gt; { int compare(T o1, T o2); boolean equals(Object obj); } 
+</code></pre></li>
+
+<li><p>语法</p>
+
+<ul>
+<li>Comparator接口有两个抽象方法，但其中一个equals方法是覆写了Object的equals方法。接口总是声明对应于Object公共方法的抽象方法，但它们通常是隐含的。无论是隐式声明还是显式声明，此类方法都会从计数中排除。</li>
+<li>[跳过]有一种情况下会变得复杂，由于两种接口可能具有不完全相同的方法，但由于擦除而相关。（*override-equivalent*）</li>
+</ul></li>
+</ul>
+
+<h4 id="4-lambda表达式的类型是什么">4. lambda表达式的类型是什么？</h4>
+
+<p>Lambda表达式是函数式接口的实例。但lambda表达式本身并不包含他正在实现哪个函数式接口的信息；该信息是从使用他的上下文中推导出来的。例如：</p>
+
+<pre><code>x -&gt; 2 * x
+</code></pre>
+
+<p>上面表达式可以是下面函数式接口的实例</p>
+
+<pre><code class="language-java">interface IntOperation { int operate(int i); }
+</code></pre>
+
+<p>所以合法的写法是</p>
+
+<pre><code class="language-java">IntOperation iop = x -&gt; 2 * x
+</code></pre>
+
+<p>此处期望表达式的类型式IntOperation，这称为lambda表达式的目标类型。但lambda表达式可以与不同的函数式接口类型兼容，因此同样的lambda表达式可以在不同的上下文中具有不同的目标类型。例如，给定一个接口</p>
+
+<pre><code class="language-java">interface DoubleOperation { double operate(double i); }
+</code></pre>
+
+<p>下面代码也是合法的</p>
+
+<pre><code class="language-java">DoubleOperation dop = x -&gt; 2 * x
+</code></pre>
+
+<p>总结一下，lambda表达式的目标类型必须是函数接口，并且为了与目标类型兼容，lambda表达式必须与函数式接口具有相同的参数类型，其返回类型必须与接口返回类型兼容，并且只能抛出接口允许的异常。</p>
+
+<h4 id="5-lambda表达式是对象吗">5. lambda表达式是对象吗？</h4>
+
+<p>是的，但不完全是：他们是Object子类的实例，但不一定具有唯一的标识。lambda表达式是函数式接口的一个实例，他本身就是Object的子类。如下可以看出这一点：</p>
+
+<pre><code class="language-java">Runnable r = () -&gt; {};
+Object o = r;
+</code></pre>
+
+<p>为了理解这种情况，有必要知道Java 8中的实现既有短期目标，也有长期目标。短期目标是为了支持日益并行的硬件而实现collection的内部迭代。从长远来看，是为了Java能够支持更多函数式风格的编程。目前只追求短期目标，但设计人员正谨慎的地避免损害Java函数式编程的未来，这可能在未来包括完整的函数类型，例如Scala和Haskell。</p>
+
+<h4 id="6-lambda表达式可以在哪里使用">6. lambda表达式可以在哪里使用？</h4>
+
+<p>Lambda表达式可以在具有目标类型的任何上下文中使用。具有目标类型的上下文有下面特征：</p>
+
+<ul>
+<li><p>声明的变量、赋值、已经初始化的数组，这时目标类型为指定的类型或者数组类型。</p></li>
+
+<li><p>返回语句，目标类型为方法期望的返回类型。</p></li>
+
+<li><p>方法或者构造函数的参数，目标类型为相应参数的类型。如果方法后者构造函数被重载，编译器会先执行重载决策，然后给出目标类型。如果重载决策和类型推断后还有歧义，则可以显式的提供目标类型。</p></li>
+
+<li><p>lambda表达式主体，通过派生，lambda表达式本身可以提供目标类型为他们的主体，这也是可以在函数中返回函数的关键，例如：</p>
+
+<pre><code class="language-java">Supplier&lt;Runnable&gt; c = () -&gt; () -&gt; { System.out.println(&quot;hi&quot;); };
+</code></pre></li>
+
+<li><p>三元条件表达式，例如：</p>
+
+<pre><code class="language-java">Callable&lt;Integer&gt; c = flag ? (() -&gt; 23) : (() -&gt; 42);
+</code></pre></li>
+
+<li><p>强制转换，显式的提供目标类型，例如：</p>
+
+<pre><code class="language-java">// Runnable或者Callable都有可能
+Object o = () -&gt; { System.out.println(&quot;hi&quot;); };	
+// 强制转换消除了歧义，所以合法
+Object o = (Runnable) () -&gt; { System.out.println(&quot;hi&quot;); }
+</code></pre></li>
+</ul>
+
+<h4 id="7-lambda表达式的作用域">7. lambda表达式的作用域</h4>
+
+<p>Lambda表达式不从超类型继承任何变量名称，也不引入新级别的作用域。除了lambda表达式为自己的形参添加了新名称，lambda表达式主体中的名称与封闭环境中的名称完全相同，主体中的this和super关键字也和表达式主体之外的一样。</p>
+
+<pre><code class="language-java">public class Hello {
+  Runnable r1 = () -&gt; { System.out.println(this); }
+  Runnable r2 = () -&gt; { System.out.println(toString()); }
+
+  public String toString() { return &quot;Hello, world!&quot;; }
+
+  public static void main(String... args) {
+    new Hello().r1.run();
+    new Hello().r2.run();
+  }
+}
+</code></pre>
+
+<p>上面的例子中打印了两次”Hello, world!“。</p>
+
+<p>同时这也意味着：</p>
+
+<ul>
+<li>可以直接在lambda表达式中访问外层的局部变量</li>
+<li>在lambda表示中不可以修改外层局部变量</li>
+<li>在lambda表达式中声明变量不容许与局部变量同名</li>
+<li>Lambda内部对于成员变量以及静态变量是即可读又可写。</li>
+</ul>
+
+<h4 id="8-业务上常用到lambda的地方">8. 业务上常用到lambda的地方</h4>
+
+<ul>
+<li>JPA以及Entity和DTO之间频繁的Mapper。</li>
+</ul>
+
+<p>我们在使用Spring JPA时，仓储（Repository）继承JpaRepository；JPA提供的findById查询会返回Optional&lt;T&gt;，Optional中的大部分方法参数类型都是函数式接口，所以Optional方法可以传入lambda表达式。例如：</p>
+
+<pre><code class="language-java">  // 删除先找后删，通过JPA提供的findById方法，获得一个Optional&lt;Role&gt;,
+  // 调用Optional的ifPresent方法，表示如果找到Role，就执行方法中的lambda表达式，
+  // 如果没有找到，就什么也不做。
+  roleRepository.findById(id).ifPresent((role) -&gt; roleRepository.delete(role));
+  // 可以用双冒号（方法参考符）将方法调用简写为下面
+  roleRepository.findById(id).ifPresent(roleRepository::delete);
+</code></pre>
+
+<p>思考下面的代码：</p>
+
+<pre><code class="language-java">  // 下面是RoleController里的一段代码，意思是如果Optional中Role不为null，就返回Role，状态码为200
+  // 如果Role为null，也不会报空指针异常，而是会返回状态码404。
+  // 注意：此处为示例代码，实际业务中禁止在controller层直接调用repository层。
+  public ResponseEntity&lt;Role&gt; getUserById(@PathVariable String id) {
+          logger.debug(&quot;REST request to get User : {}&quot;, id);
+          return ResponseUtil.wrapOrNotFound(roleRepository.findById(id));
+  }
+
+  &lt;X&gt; ResponseEntity&lt;X&gt; wrapOrNotFound(Optional&lt;X&gt; maybeResponse, HttpHeaders header) {
+          return maybeResponse.map(response -&gt; ResponseEntity.ok().headers(header).body(response))
+              .orElse(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));
+  }
+</code></pre>
+
+<p>另外JPA提供的findAll方法会返回Page&lt;T&gt;或者List&lt;T&gt;，他们的方法都可以传入lambda表达式。</p>
+
+<pre><code class="language-java">  // findAll返回一个Page&lt;User&gt;，使用map方法传入lambda表达式，将返回Page&lt;UserDTO&gt;。
+  userRepository.findAll(specifications, pageable).map(new UserMapper()::userToUserDTO);
+</code></pre>
+
+<ul>
+<li><p>集合的处理（stream）。</p>
+
+<pre><code class="language-java">// userDTO.getAuthorities()返回的是一个Set&lt;String&gt;，代表roleId的集合
+Set&lt;Role&gt; authorities = userDTO.getAuthorities().stream().map(roleRepository::getOne).collect(Collectors.toSet());
+</code></pre></li>
+</ul>
+
+<p>关于stream，这里不多讲，是另一大块的内容，总之，collection可以转化为stream，而流里的方法都可以接收lambda表达式，最后处理完成后再转回collection。</p>
+
+<h4 id="9-杂项">9. 杂项</h4>
+
+<p>延伸阅读:</p>
+
+<p><a href="http://cr.openjdk.java.net/~briangoetz/lambda/lambda-state-final.html">lambda-state-final</a></p>
+
+<p>延伸思考：</p>
+
+<p>函数式接口Consumer vs Supplier vs Function的区别？</p>
+
+<p>方法和函数的区别？</p>
+
+<p>多CPU、多核、超线程的关系？</p>
+
+<p>单核多线程与多核多线程的区别？</p>
+
+<p>什么是闭包，什么是匿名方法，java里的闭包？</p>
+
+<p>为什么函数式编程适合多核时代？</p>
+
+<p><strong>本文来源</strong>：本文翻译自<a href="http://www.lambdafaq.org/">http://www.lambdafaq.org/</a> ，仅供学习使用，转载请注明出处:<a href="https://github.com/fallingyang/docs。">https://github.com/fallingyang/docs。</a></p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://fallingyang.github.io">往事随风</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://fallingyang.github.io/posts/Java8%E4%B8%ADLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">https://fallingyang.github.io/posts/Java8%E4%B8%ADLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/Hystrix%E5%AE%9E%E7%8E%B0%E7%86%94%E6%96%AD%E4%B8%8E%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/">Hystrix实现熔断与服务降级</a></li>
+        
+        <li><a href="/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">微服务学习记录</a></li>
+        
+        <li><a href="/posts/Java%E8%8C%83%E5%9E%8B/">Java范型</a></li>
+        
+        <li><a href="/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Mysql学习笔记</a></li>
+        
+        <li><a href="/posts/%E7%A1%85%E8%B0%B7%E7%99%BE%E5%B9%B4%E5%8F%B2%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">硅谷百年史读书笔记</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://fallingyang.github.io/tags/LAMBDA">LAMBDA</a></li>
+                                
+                                <li><a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91">翻译</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "fallingyang/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

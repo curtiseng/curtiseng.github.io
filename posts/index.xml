@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/posts/</link>
+    <description>Recent content in Posts on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 04 Nov 2019 16:11:45 +0800</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>envoy与hystrix熔断比较</title>
+      <link>https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Mon, 04 Nov 2019 16:11:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/</guid>
+      <description>envoy有更好的熔断策略
+hystrix有更精确的控制以及fallback操作
+但这些都可以弥补，如精确的路由操作以及在方法的异常内处理fallback操作</description>
+    </item>
+    
+    <item>
+      <title>数据权限的两种思路</title>
+      <link>https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Fri, 01 Nov 2019 17:11:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/</guid>
+      <description>数据权限的两种思路 一种侧重自动过滤，请求没有明确的业务意图，一种侧重主动拦截，请求有明确的业务意图；
+前者将业务意图封装在数据库层面，后者将业务意图交由前端和领域层（控制层只是领域层的简单表现形式）。
+数据库拦截器（数据过滤）  Mybatis Intercepts JPA Predicate  url规则过滤（权限拦截）  基于策略的权限控制  以部门为例 比如我要部门的人员，数据库里人员有系统部门字段，不同角色可以看到不同的人，部门管理员可以看到自己所在部门的人员，父部门可以看到子部门的人员，数据拦截的方式是在业务后端判断不同角色，查找不同的规则，根据规则填充拦截器，返回数据；URL规则过滤则是提前将规则数据放入策略引擎，前端需要根据具体业务将具体需要查询的部门，子部门返回，规则引擎判断URL里的部门数据是否合法。</description>
+    </item>
+    
+    <item>
+      <title>组织机构及项目建模</title>
+      <link>https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/</link>
+      <pubDate>Tue, 29 Oct 2019 16:35:45 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/</guid>
+      <description>公司与项目的关系</description>
+    </item>
+    
+    <item>
+      <title>用户安全与认证技术图谱</title>
+      <link>https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/</link>
+      <pubDate>Fri, 18 Oct 2019 15:18:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/</guid>
+      <description>架构篇  用户中心是云原生的基石  什么是云原生 为什么企业需要用户中心及其复杂度(以google为例) 用户中心的组成(账户信息、登录客户端、资源服务、老旧系统、开放平台、统一第三方登录)  用户认证技术  Base(基于Security各种基础词汇，比如认证、授权、鉴权、身份保持&amp;hellip;) OAuth2 OIDC JOSE标准 关系与取舍  用户中心架构选择  非OAuth2方案(session共享、CAS、Token) 身份保持方案(Session、Token、JWT) RABC与OAuth2,集中或者分散 网关统一认证与资源服务器独立认证 代理认证与一些&amp;rdquo;旁门左道&amp;rdquo; 一个可行的方案  多租户与地区亲和  单体实现篇  权限控制模式与模型设计  RBAC ABAC(PBAC) 其他(ReBAC、OrBAC)  使用Spring Security保护Web  Spring Security架构(config、core、web、过滤器、配置装配) 授权(Authorization:Session和JWT方案) 鉴权(Authentication:字符串匹配算法，动态鉴权) 保护REST API 保护WebFlux API  使用OPA和Spring Security保护API 单页面应用前端权限控制  分布式实现篇  使用Spring Security OAuth2实现用户中心  Spring Security OAuth2架构(不同组件过滤器的优先级配合) Spring Security5 OAuth2架构与重构原因  授权服务器实现(无状态、多租户)  用户服务实现与同步方案 使用Spring Security5实现OIDC 集成第三方Provider 授权服务集成LDAP 多租户(三种隔离级别与实现方式)  认证方式  认证网关密码模式登录 OAuth2Login实现登录 单点登录(OAuth2单点登录原理，浏览器识别)  资源服务器实现(资源服务器与鉴权的关系) 开放平台实现 OAuth2 Proxy实现  nginx实现 treafik实现   安全增强  安全增强  授权服务器注意事项 客户端注意事项 HTTPS CSRF、CORS LocalStorage、Cookie session管理 记录登录状态 内容安全策略(CSP) 密码加密 使用Vault管理密钥</description>
+    </item>
+    
+    <item>
+      <title>云原生参会记录2019</title>
+      <link>https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 27 Jun 2019 20:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/</guid>
+      <description>###1. workshop
+ 基于 SOFAStack 快速构建微服务  本地演示通过SOFARPC实现服务间调用。
+ 金融场景下的分布式事务最佳实践  分布式事务主要实现了AT和TCC两种场景，Seata项目正在实现XA和SAGA模式的分布式事务。
+ 基于 Kubernetes 的云原生部署体验  上述demo在SOFACloud的部署与发布。
+ 云上的 Service Mesh 基本使用场景体验  蚂蚁金服的Cloud Mesh产品体验，实现零侵入的服务链路监控，以及灰度发布。
+ 基于 Serverless 轻松构建云上应用  蚂蚁金服对于Serverless的理解为一切皆可Serverless。
+2. 技术演讲  部署 Harbor 和管理 Harbor Helm Charts 的真实实践与如何轻松地重复启动 Helm Chart 安装过程：
+ 可使用向导来呈现安装 Chart 时的设置验证（values.yaml）；
+ 相应 Chart 设置的值集将作为 Chart 部署配置保留，以备将来重用；
+ 可以在存储库中管理 Chart 安装的 Chart 部署配置，以进行区分、复制和重用。
+  惠普使用Istio和OPA实现不同级别服务的Access Control。第一级别的服务大部分来自第三方服务，无法对服务进行代码级别的权限控制，在这一级别的服务我们使用Istio的服务级别的权限控制，Istio服务级别的权限控制使用的是Kubernetes自身的RBAC特性；第二级别服务就是业务中比较公共的服务，这些服务在不同的场景下有不同的权限控制，我们使用OPA来实现基于策略的访问控制(基于属性的访问控制)，基于策略的权限控制可以很灵活的更改。
+ 降低SCF托管应用的冷启动，主要分为三个方面，一个是降低冷启动时延，优化调度、容器启动、代码拉取，同时更改容器网络实现。二是避免冷启动，实时预测，平衡资源和延迟，对于调用链路上的函数，感知后提前启动，经过以上优化，降低到0.0X的冷启动率。三是灰度切换，提前预知。关于网络优化主要是创建SCF网络代理，在创建容器时同时创建网卡代理，对比传统创建容器后初始化网卡更加快速。
+ AWS分享Java程序员的Kubernetes之旅(github)：</description>
+    </item>
+    
+    <item>
+      <title>并发编程</title>
+      <link>https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Fri, 10 May 2019 11:30:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <description> 思想  分工  Java语言提供的Executor、Fork/Join、Future等 Go语言提供的go关键字 生产者-消费者 Thread-Per-Message Worker Thread  同步(协作)  管程模型 Java语言提供的Executor、Fork/Join、Future分工方法也解决线程协作的问题，Java语言特有的CountDownLatch、CyclicBarrier、Phaser、Exchanger等，这些底层都是使用管程模型 Go语言  互斥  可见性与有序性的内存模型来确保同一时刻，只允许一个线程访问共享变量，也叫互斥 语言同步关键字、各种Lock、不共享变量、变量只读、Copy-on-write模式 Java中的synchronized关键字，SDK中的Lock，ThreadLocal，final关键字   术语  并发与并行  并发属于代码；并行属于一个运行中的程序。并发是相对于一个代码上下文的。
+ 原子上下文：进程上下文，操作系统上下文，硬件上下文，goroutine上下文
+ 原子性：不可分割(indivisible)和不可中断(uninterruptible)
+ 可见性
+ 有序性
+ 竞争条件：当两个或多个操作必须按正确的顺序执行，而程序未保证这个顺序，就会发生竞争。
+ 临界区(critical section)：程序中需要独占访问共享资源的部分
+ 并发安全
+ 死锁、活锁、饥饿
+ 内存模型
+ 内存访问同步
+ CSP
+  </description>
+    </item>
+    
+    <item>
+      <title>Hibernate使用</title>
+      <link>https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/</guid>
+      <description>常见问题: 1. SpringJPA中getOne()与findById()区别:
+   getOne() findById()     Lazily loaded reference to target entity Actually loads the entity for the given id   Useful only when access to properties of object is not required Object is eagerly loaded so all attributes can be accessed   Throws EntityNotFoundException if actual object does not exist at the time of access invocation Returns null if actual object corresponding to given Id does not exist   Better performance An additional round-trip to database is required    https://www.</description>
+    </item>
+    
+    <item>
+      <title>The little Go Book读书笔记</title>
+      <link>https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 13 Mar 2019 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <description>一、基础知识 go是一种编译型、具有静态类型和类c风格语法的语言，并具备垃圾回收机制。go语言的语法相对于c来说更加简洁，结尾没有分号，if、for等条件可以省略括号，while可以用for来表示。go的变量声明类型在变量名后边，这样设计的原因可以在go blog中找到，变量有默认值，也可以使用:=来自动推断类型。在GoPL一书里推荐使用显式的var power int = 0来取代默认值，同时也可以在不太关注类型的局部函数里，使用推断类型power := 0。:=必须使用在新变量上，之后只能用=来赋值，同时go支持多个变量同时赋值。go函数实现了柯里化，容许返回多个值，如果返回值中有用不到的值，你可以将他赋给_，这表示一个空白标示符。在CNGo里， 介绍了常用的Go模式之一就是定义一个函数，同时返回一个值和一个错误值，如果函数没有出错，错误值就是nil,还需要注意的是返回值的名称只在函数定义的范围内有效。go函数多个参数类型一样时，也可以使用简略写法func add (a, b int) int {...}。
+二、结构体 go不是一个面向对象的语言，它没有对象和继承的概念，因此也没有面向对象语言的特性如多态和重载。go提供了结构体，并且可以将一些方法和结构体关联，结构体在赋值时每个等式后都要加,，即使是最后一个等式。在go语言中，函数的参数传递是按值传递的，所以我们可以使用指针来改变原参数的值。在go语言中，使用组合来来代替继承，go语言中的组合调用十分简洁，组合体可以直接调用子体的方法。而且因为匿名组合是一种编译技巧，我们能“重写”一个组合子体的方法，但为了区分子体的方法，调用子体方法时就需要指定子体s.Person.Introduce()。</description>
+    </item>
+    
+    <item>
+      <title>Envoy线程模型</title>
+      <link>https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Tue, 25 Dec 2018 11:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/</guid>
+      <description>关于基于代码的Envoy的low level技术文档目前十分稀缺。为了解决文档稀少的问题，我准备写一系列介绍Envoy中各种子系统的文章。由于这是第一篇文章，我希望得到大家的回馈，包括其他你希望了解的主题。</description>
+    </item>
+    
+    <item>
+      <title>分布式事务分类（长事务）</title>
+      <link>https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/</link>
+      <pubDate>Fri, 23 Nov 2018 10:50:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/</guid>
+      <description> 2PC 3PC XA JTA TCC MQ SAGA </description>
+    </item>
+    
+    <item>
+      <title>对象关系模型不匹配</title>
+      <link>https://fallingyang.github.io/posts/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E4%B8%8D%E5%8C%B9%E9%85%8D/</link>
+      <pubDate>Tue, 13 Nov 2018 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%AF%B9%E8%B1%A1%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E4%B8%8D%E5%8C%B9%E9%85%8D/</guid>
+      <description>关系数据库模型在理论上主要解决的是消除数据冗余的问题。关系模型的数学基础是所谓的集合论，而集合的基本含义正是一组具有某种原子性的互不相同的元素。面向对象技术是对相关性进行局域化的一种手段（相关的数据和操作聚集到同一对象名义下），在这一局域化过程中，相同的元素被识别出来，成为独立的对象。从某种意义上说，关系模型与对象模型是殊途同归的过程，是从不同侧面对同一事物的反映。关系模型中，我们关注的重点是元素组成的集合，允许的连接关系定义在集合之上。而在对象模型中，我们关注的首先是横向关联的实体，实体之间具有稳定的联系。在概念层面上，从对象模型映射到一种关系存储模型只是一个分组问题。为了断开实体之间的直接联系，关系模型创造了一个id字段，而对象模型并不是需要显式id的。在关系模型中，关联并不是通过某种存在的结构来表达的（一个实体持有另一个实体的指针，拥有直接联系），而是将直接关联问题弱化为某种计算过程，我们必须检查id的值（不是某种直接的存在性），通过某种运算过程才能重新发现数据之间的关联。
+通过id（伴随一个匹配计算过程）来进行间接关联对于保证模型的一致性是非常关键的。在ORM中恢复了对象的强关联其实会造成很多潜在的复杂性。例如为了维护对象层面结构的一致性，在更新父子关系的时候，我们需要同时调用 child.setParent(parent); parent.getChildren().remove(child); 当关联结构更加复杂的时候，这里所需要的维护工作是随之增加的。不过，在ORM中，对象的形态是暂时性的。在ORM的一次session的操作过程中，对于对象状态的修改可以是不一致的。例如我们可以只调用child.setParent(parent); 而不需要同时 parent.getChilren().remove(child); 只要我们在此次session操作中，不需要同时用到parent.getChildren(). 这种关联的暂时性对于很多ORM应用来说是必不可少的。
+对象模型中可以直接表达的结构关系比关系模型要丰富一些，例如继承关系，many-to-many, one-to-list等。但是所有这些都不是真正本质性的差异。抛弃概念诠释，基类与众多派生类之间的关系基本上可以等价于一组one-to-one关系。而当关联对象本身的重要性凸现出来的时候，当我们无法把它约化为对象上的一些附属特性的时候（例如数组的下标），我们必然要建立相应的关联对象，而这正对应于关系模型中的中间关联表。中间关联表上增加额外的字段是一个自然的扩展过程，而对象模型上做这样的扩充往往表现为形态上的重大的不兼容的变化，例如从getManyToManyEntity() -&amp;gt; getToManyRelation(), 这实际上意味着这里的对象形式是偶然的，简化的。
+在原始的关系数据库模型中，所有的表之间的地位是平等的，所有字段之间的地位是平等的（主键和外键在参与数据关联时和其他字段的处理方式一致）。这种概念上的均一性和普遍性往往被认为是理论的优美之处。但是现实世界是复杂的，发展的方向就是逐步识别出不同之处，并找出自然的表达形式将这些不同表达出来。均匀的关系模型是对称性最高的，最简化的模型。在面对物理约束时，它隐含的假设是集合之间很少发生相互作用，单表（表单到数据表之间的映射）和主从表是最广泛的情况。试着想象一下关系模型，在思维中一般我们只能看到两个数据表，当考虑到多个表的时候，因为这些表之间没有明确的可区分性，因此它们的意象是模糊的。只有明确意识到主键，外键，主表，从表，字典表，事实表，纬度表这些不同的概念的时候，当对称性出现破缺的时候，我们思维中的模型才能够丰富化起来。
+关系模型理论应用到数据库具体应用中时，并不需要死守关系范式教条，它们只是描述了某种极端化的对唯一性的追求。面对具体应用的时候，理论本身也在不断丰富化。我并不把现实应用中必然需要增加冗余字段看作是关系理论失效的结果。从关系完全分解，到关系完全不分解之间，我们可以建立大量的模型。建立冗余字段的时候，我们存在着大量可能的选择，到底哪一种选择是最优的，理论方面仍然可以给我们以具体的指导。理论在各种不同纯化程度的关系模型中都可以给我们以直观的建议。数据仓库理论中建立的snowflake模式和star模式，强调了针对主题域的允许部分冗余的关系分解。这里实际上是强调了表之间的不同性。不再是所有的表都处于同一地位。Fact Table和Dimension Table之间的区别被识别出来，并被明确处理。在我看来，这是原始关系模型的一种自然发展，它也是关系模型理论的一部分。理论不应该是单一的，而是提供一个模型级列，在不同的复杂性层次上，我们可以根据理论的指导选择具体的实现模型。
+关于ORM http://canonical.iteye.com/blog/111500 关系模型中的所谓关系是在使用时刻才定义的，所有建立关系的方式在某种程度上都是等价的，也是外在的。而在ORM中主键与外键之间的关联被独立出来，成为模型内置的部分。这在很多时候简化了数据查询的结构构造过程。
+在ORM中主键因为缓存的存在而显出与其他字段的区别。ORM的使用使得数据存储的分解策略得到扩充。并不是所有的表的更新频度都是一致的，而且表中的数据量大小也不同。字典表一般较小，而且很少更新，可以安全的复制。在整个数据存储框架中，ORM作为独立的技术元素参与数据存储过程，通过主键提供缓存服务，产生了新的数据分布模型，提供了新的性能优化契机。</description>
+    </item>
+    
+    <item>
+      <title>工作流与状态机杂谈</title>
+      <link>https://fallingyang.github.io/posts/%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9C%BA%E6%9D%82%E8%B0%88/</link>
+      <pubDate>Tue, 23 Oct 2018 22:30:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9C%BA%E6%9D%82%E8%B0%88/</guid>
+      <description>微服务下使用状态机与事件驱动实现复杂业务流程。
+ 一. 区别  process vs. activity  首先这里的activity是活动，而不是开源工作流引擎Acticiti.
+参考：[process vs. activity][1]
+ business process vs. workflow  工作流是软件实现层次的业务流程，而BPMN是沟通两者的便利的工具。
+When describing a workflow, which is an executable process.
+参考：[What is the fundamental difference between a workflow and a business process in the context of process (or workflow) automation?][2]
+ workfow engine vs. state machine  使用状态机的情况：业务流程不常变，流程控制权在服务商里的不复杂的业务流程，所以在我的感觉大部分情况下状态机适合互联网公司，在没有特殊必要的情况下可以避免引入工作流引擎，而使用状态机来代替。当然也不是绝对的，主要因素是业务流程是否复杂，复杂评判的标准是工程师是否可以用状态图准确的描述业务流程发生的所有状态。
+使用工作流引擎的情况：业务复杂多变，业务流程数量巨大，与之对应工作流引擎一半多用在企业级服务里。但企业级服务在某些流程不怎么常用或者需要追求一些性能，这时可以用状态机来代替工作流引擎。
+参考：[Workflow Engine vs. State Machine][3]
+ what&amp;rsquo;s is BPMN(Business Process Model and Notation)  参考：http://www.</description>
+    </item>
+    
+    <item>
+      <title>EurekaClient注册过程</title>
+      <link>https://fallingyang.github.io/posts/EurekaClient%E6%B3%A8%E5%86%8C%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Wed, 15 Aug 2018 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/EurekaClient%E6%B3%A8%E5%86%8C%E8%BF%87%E7%A8%8B/</guid>
+      <description> Debug过程  EnableDiscoveryClient
+ 实现类选择与Spring Bean注入
+ EnableDiscoveryClientImportSelector
+ AutoServiceRegistrationConfiguration
+ EurekaDiscoveryClient
+ EurekaClientConfigBean
+ InetUtils
+  获取所有网卡，依次进行遍历，取ip地址合理、索引值最小且不在忽略列表的网卡的ip地址作为结果。如果仍然没有找到合适的IP, 那么就将InetAddress.getLocalHost()做为最后的fallback方案。
+EurekaClientAutoConfiguration中的eurekaInstanceConfigBean方法会构造并返回一个EurekaInstanceConfigBean，EurekaInstanceConfigBean的构造方法如下：
+public EurekaInstanceConfigBean(InetUtils inetUtils) { this.inetUtils = inetUtils; this.hostInfo = this.inetUtils.findFirstNonLoopbackHostInfo(); this.ipAddress = this.hostInfo.getIpAddress(); this.hostname = this.hostInfo.getHostname(); }123456  ​ 在这个时间点，application.yml中的配置已经加载，spring boot的配置文件在容器创建之前就全加载完了。
+ EnvironmentPostProcessor Spring的监听器,Spring根据应用启动的过程,提供了四种事件供我们使用:  ApplicationStartedEvent ：spring boot启动开始时执行的事件 ApplicationEnvironmentPreparedEvent：spring boot 对应Enviroment已经准备完毕，但此时上下文context还没有创建。 ApplicationPreparedEvent：spring boot上下文context创建完成，但此时spring中的bean是没有完全加载完成的。 ApplicationFailedEvent：spring boot启动异常时执行事件   问题：  eureka.server.enable-self-preservation=false解决使用docker来停止服务时，服务没有机会发送下线心跳，多次重启服务后出现假服务。  </description>
+    </item>
+    
+    <item>
+      <title>Java8中Lambda表达式</title>
+      <link>https://fallingyang.github.io/posts/Java8%E4%B8%ADLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <pubDate>Wed, 23 May 2018 10:50:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Java8%E4%B8%ADLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <description>1. 什么是Lambda(λ)表达式 在数学运算和一般计算中，lambda表达式是一个函数：对于某些输入值或者所有的输入值，有确定的输出值。java使用lambda表达式为自己引入了函数(java只支持方法)。使用传统的java术语解释，lambda可以被理解为具有更简洁语法的匿名方法，这个匿名方法可以省略修饰符，返回类型，某些情况下，参数类型也可以省略。
+ lambda语法
+(parameters) -&amp;gt; expression (parameters) -&amp;gt; { statements; }  例子
+// 输入两个整数，返回他们的和 1. (int x, int y) -&amp;gt; x + y // 输入两个值，返回他们的差 2. (x, y) -&amp;gt; x - y // 没有输入，返回42 3. () -&amp;gt; 42 // 输入一个字符串，打印他到控制台，返回为空 4. (String s) -&amp;gt; System.out.println(s) // 输入一个值，返回doubling x 5. x -&amp;gt; 2 * x // 输入一个collection，清空他，并返回清空前的size 6. c -&amp;gt; { int s = c.size(); c.clear(); return s; }  语法说明</description>
+    </item>
+    
+    <item>
+      <title>Hystrix实现熔断与服务降级</title>
+      <link>https://fallingyang.github.io/posts/Hystrix%E5%AE%9E%E7%8E%B0%E7%86%94%E6%96%AD%E4%B8%8E%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/</link>
+      <pubDate>Tue, 15 May 2018 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Hystrix%E5%AE%9E%E7%8E%B0%E7%86%94%E6%96%AD%E4%B8%8E%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7/</guid>
+      <description>  Hystrix使用命令模式与线程池（或者信号量）实现了断路器、线程隔离和服务降级，提高了服务容错能力。
+ 一、可用降级场景  超时降级 故障降级 读服务降级 写服务降级 多级降级 密集数据流错误备份降级 人工降级（使用配置文件）  二、Hystrix触发降级的4种情况  run()方法抛出非HystrixBadRequestException异常 run()方法调用超时 线程池/队列/信号量跑满 熔断器开启拦截调用  三、熔断包装与执行方式（?）  同步 异步 响应式 spring-hystrix  四、熔断打开/恢复条件  请求总数（QPS）超过线程池预设总数 错误百分比超过阀值范围 满足上面两个条件断路器处于打开状态  五、其他能力  线程池分组命名 请求缓存 请求合并 定制触发异常 全局配置与局部配置 监控分析  ####六、feign-hystrix
+七、zuul-hystrix 八、常用配置 九、Hystrix原理 </description>
+    </item>
+    
+    <item>
+      <title>微服务学习记录</title>
+      <link>https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 22 Dec 2017 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>一、思想  12-factor Apps DDD（服务层面与数据库层面） AFK扩展立方 服务契约（API接口） 康威定律（组织结构）  二、Spring Cloud版本及模块  文档基于2017年9月21日的Dalstom.SR3版
+  Core
+ 分布式/版本化配置
+ 服务注册和发现
+ 路由网关
+ 服务间会话
+ 负载均衡（包括客户端负载均衡与服务端负载均衡）
+ 熔断器
+ 分布式消息
+  三、Core  Spring Cloud强依赖Spring Boot（非准确）
+  Spring Cloud Context
+ external sources Context local external configuration files Context   两个Context共享一个Env,分为父子Context。
+ Spring Cloud Commons   定义基础的抽象的需要实现的各种服务模块，包括服务注册模块、健康检查、负载均衡、断路器。
+  服务注册:DiscoveryClient,@EnableDiscoveryClient 健康检查:DiscoveryHealthIndicator,通过收集spring boot actuator的健康信息。 负载均衡:LoadBalancerClient,@LoadBalanced,LoadBalancerAutoConfiguration 断路器:@EnableCircuitBreaker  四、 版本化配置（Spring Cloud Config）  ⚠️ 配置中心需要注意两点：1.</description>
+    </item>
+    
+    <item>
+      <title>Java范型</title>
+      <link>https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/</link>
+      <pubDate>Wed, 21 Jun 2017 19:37:48 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/</guid>
+      <description>范型方法(GENERIC METHOD) [权限] [修饰符] [泛型] [返回值] [方法名] ( [参数列表] ) {} public static &amp;lt; E &amp;gt; void printArray( E[] inputArray ) {}  范型类(GENERIC CLASS) 泛型类和普通类的声明一样，只是在类名后面加上了类型表示。就像泛型方法，泛型类可以有一个或多个类型表示，用逗号进行分隔
+范型接口(GENERIC INTERFACE) 泛型接口是在声明接口的时候指定，类在继承接口的时候需要补充泛型类型，可以实现泛型接口的时候不指名泛型类型，这样这个类就需要定义为泛型类
+类型推导 以声明键值对的例子来说，通常的写法会有一长串，不免有些痛苦
+Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; m = new HashMap&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt;();  在JavaSE1.6之后，可以省略后面的范型
+Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; m = new HashMap&amp;lt;&amp;gt;();  还可以构造一个泛型方法作为静态工厂，来完成这一操作
+public static &amp;lt;K, V&amp;gt; HashMap&amp;lt;K, V&amp;gt; newInstance() { return new HashMap&amp;lt;K, V&amp;gt;(); } Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; m = newInstance();  泛型标识与泛型通配符 标识规范</description>
+    </item>
+    
+    <item>
+      <title>Mysql学习笔记</title>
+      <link>https://fallingyang.github.io/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 21 Jun 2017 19:37:48 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>1. MySql 逻辑架构 1.1 三层结构  最上层不是mysql独有的，大多数基于网络的客户端／服务器的工具或者服务都有类似的架构。比如连接处理、授权认证、安全等等。 第二层是MySql比较有意思的部分。大多数MySql的核心服务功能都在这一层，包括查询解析、分析、优化、缓存以及所有的内置函数（例如：日期、时间、数学和加密函数），所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等。 第三层包含了存储引擎。存储引擎主要负责MySql中数据的存储和提取。不同存储引擎都有各自的优势和劣势。服务器通过API与存储引擎进行通信。这些API屏蔽了不同存储引擎之间的差异，使得这些差异对上层的查询过程透明。存储引擎包含几十个底层函数，用于执行诸如“开始一个事物”或者“根据主键提取一行记录”等操作。但存储引擎不会去解析SQL(除了InnoDB，它会解析外键，因为MySql服务器本身没有实现该功能),不同存储引擎之间也不会相互通信，而只是简单的响应上层服务器的请求。  1.2 连接管理与安全性 每个客户端连接都会在服务器进程中拥有一个线程，这个连接的查询只会在这个单独的线程中执行，该线程只能轮流在某个CPU核心或者CPU中运行。服务器会负责缓存线程，因此不需要为每一个新建的连接创建或销毁线程。
+客户端连接服务器需要认证，认证基于用户名、主机信息和密码。也可以使用安全套接字（SSL）的方式连接，还可以使用X.509证书认证，连接成功会验证权限。
+1.3 优化与执行 MySql会在解析查询，并创建内部数据结构，然后对其进行优化，包括重写查询、决定表的读取顺序，以及选择合适的索引等。
+对于select语句，在解析查询之前会先检查查询缓存。
+2.并发控制  多个查询需要同一时刻修改数据，都会产生并发控制的问题，并发控制在两个层面，数据库服务器层和存储引擎层。
+尽管存储引擎可以管理自己的锁，MySQL数据库服务器本身还是会使用各种有效的表锁来实现不同的目的。例如：服务器会为诸如ALTER TABLE之类的语句使用表锁，而忽略存储引擎的锁机制。
+ 2.1 读写锁  读锁：又叫共享锁，读锁是共享的，或者说是相互不阻塞的，多个客户端可以在同一时刻读取同一个资源，而互不干扰。 写锁：又叫排他锁，它是排他的，也就是说一个写锁会阻塞其他的写锁和读锁。 写锁比读锁有更高的优先级，一个写锁请求可能会被插入到读锁队列的前面。  2.2 锁粒度  申引：锁策略就是在锁的开销和数据的安全性之间寻找平衡，这种平衡也会影响性能。
+  表锁（table lock）  表锁是MySql中最基本的锁策略，也是开销最小的策略。表锁会锁定整张表。
+ 行级锁（row lock）  行级锁可以最大程度地支持并发处理（同时也带来了最大的锁开销）。InnoDB和XtraDB实现了行级锁。行级锁只在存储引擎层实现，没有在MySql服务器层实现。
+3.事务  什么是事务？事务的标准特性（ACID）是什么？大家都知道。
+一个实现了ACID的数据库，相比没有实现ACID的数据库，通常会需要更强的CPU、更大的内存和更多的磁盘。
+ 3.1 隔离级别  数据库中实现事务隔离有两种方式：一种是读取数据前，对其加锁，阻止其他事务对数据进行修改；另一种是数据库多版本并发控制（MVCC或MCC）。
+  READ UNCOMMITED(为提交读) READ COMMITED(提交读) REPEATABLE READ(可重复读) SERIALIZABLE(可串行化)  3.2 事务并发引发的问题  更新丢失：当两个或多个事务选择同一行，然后基于最初选定的值更新该行时，由于每个事务都不知道其他事务的存在，就会发生丢失更新问题。最后的更新覆盖了由其他事务所做的更新。 脏读：一个事务对一条数据进行修改，提交前，另一个事务也来对这条数据进行操作，而这条数据处于不一致状态。如果不加控制，第二事务就读取了这些“脏”数据。 不可重复读：一个事务在读取某些数据后的某个时间，再次读取之前读过的数据，发现其读出的数据已经发生了改变或者已经被删除了。 幻读：一个事务按相同的查询条件重新读取以前检索过的数据，却发现其他事务插入了满足其查询条件的新数据。 死锁：两个或者多个事务在同一资源上相互占用，并请求锁定对方占用的资源，从而导致恶性循环。  3.</description>
+    </item>
+    
+    <item>
+      <title>硅谷百年史读书笔记</title>
+      <link>https://fallingyang.github.io/posts/%E7%A1%85%E8%B0%B7%E7%99%BE%E5%B9%B4%E5%8F%B2%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 13 Jun 2017 10:46:34 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E7%A1%85%E8%B0%B7%E7%99%BE%E5%B9%B4%E5%8F%B2%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <description>你如果不清楚历史的来龙去脉，你就不可能知道未来的方向。
+ 第一台计算机（1937） 阿塔纳索夫-贝瑞计算机（Atanasoff–Berry Computer，通常简称ABC计算机）是世界上第一台电子数字计算设备。。这台计算机在1937年设计，不可编程，仅仅设计用于求解线性方程组，并在1942年成功进行了测试。然而，这台计算机用纸卡片读写器实现的中间结果存储机制是不可靠的。而且，在发明者约翰·文森特·阿塔纳索夫因为二战任务而离开爱荷华州立大学之后，这台计算机的工作就没有继续进行下去。ABC计算机开创了现代计算机的重要元素，包括二进制算术和电子开关。但是因为缺乏通用性、可变性与存储程序的机制，将其与现代计算机区分开来。这台计算机在1990年被认定为IEEE里程碑之一。
+1973年之前认定的第一台计算机（1943年7月-1946年2月14日） 电子数值积分计算机（英语：Electronic Numerical Integrator And Computer），由其缩写，简称为伊尼亚克（英语：ENIAC，英语发音：/ˈɛni.æk/，也可称埃尼阿克）是世界上第一台通用计算机。它是图灵完全的电子计算机，能够重新编程，解决各种计算问题。
+ENIAC为美国陆军的弹道研究实验室（BRL）所使用，用于计算火炮的火力表。ENIAC在1946年公布的时候，就被当时的新闻赞誉为“巨脑”。它的计算速度比机电机器提高了一千倍。这是一个飞跃，之前没有任何一台单独的机器达到过这个速度。它的数学能力和通用的可编程能力，令当时的科学家和实业家非常激动。
+关键人物：冯.诺伊曼，为了解决原子弹制造过程中大量的数学计算机，加入了ENIAC的制造，提出了冯·诺依曼体系结构。被誉为“计算机之父”。
+计算机发展历程 第一代计算机之前（机械计算机） 1642年，法国哲学家和数学家帕斯卡（Blaise Pascal）发明了世界上第一台加减法计算机。它是利用齿轮传动原理制成的机械式计算机，通过手摇方式操作运算。
+ 1971年发明的Pascal语言就是为了纪念帕斯卡而命名的
+ 先驱：无线电工程
+1900年前后，无线电技术得到很大的应用，但是建立一个无线通信系统依然艰难。
+1906年，一个名为李·德福雷斯特（Lee DeForest）的工程师在芝加哥发明了真空管。并在1907年创办了自己的公司————德福雷斯特无线电电话公司。但他不了解自己发明的真空管作为信号放大器的作用。
+1909年,西里尔·埃尔威尔创办后易名为联邦电报公司的鲍尔森无线电话和电报公司。德福雷斯特加入了联邦电报公司，并将真空管用于无线电领域。
+之后比较出名的无线电公司有：美国电话电报公司（简称AT&amp;amp;T，1915年前后买走了德福雷特斯的真空管专利），通用电器公司，美国无线电公司。
+注：真空管就是真空电子管，有二极管、三极管，在这之前造出数字电子计算机是不可能的。
+1925年，AT&amp;amp;T创立了贝尔实验室。
+Thomas J. Watson是IBM的创始人，1914年担任CTR总经理，1915年担任总裁. 1917年，CTR以国际商用机器有限公司进入加拿大市场，1924年2月14改名为国际商业机器公司（IBM）。
+ IBM的历史可以追溯到电子计算机发展前的几十年，在电子计算机发展之前，它经营穿孔卡片数据处理设备。IBM于1911年6月15日在宾厄姆顿西几英里处的纽约恩迪科特作为CTR公司注册。三个独立公司合并建立了CTR公司，它们是：列表机公司(1896年创立于华盛顿）、计算表公司(1901年创建于俄亥俄州代顿）和国际时代唱片公司(1900年创办于纽约州恩迪科特）。那时列表机公司的总裁也即创办人是Herman Hollerith。合并背后的关键人物是金融家Charles Flint，他召集三家公司的创始人提出兼并并在CTR中任职直到1930年退休。
+ 1939年一月，弗雷德·特曼的学生比尔·休利特（Bill Hewlett）和戴维·帕卡德（David Packard）在一个车库里成立了惠普公司，产品为他们在1937年开始研制的音频震荡器，第一个客户为沃尔特·迪士尼公司，用来为自己的动画电影《幻想曲》配乐。
+第1代：电子管数字机（1946—1958年） 1947年12月，美国贝尔实验室的肖克利、巴丁和布拉顿组成的研究小组，研制出一种点接触型的锗晶体管。晶体管的问世，是20世纪的一项重大发明，是微电子革命的先声。晶体管出现后，人们就能用一个小巧的、消耗功率低的电子器件，来代替体积大、功率消耗大的电子管了。
+第2代：晶体管数字机（1958—1964年） 1955年，威廉·肖克利创办肖克利晶体管公司，并组建了一个由科学家和工程师构成的梦之队，其中有八个明星人物，包括诺伊斯和摩尔，他俩于1956年在公司相遇。但由于肖克利是一个糟糕的经理，脾气古怪乖戾。所以，这后来被称为“八叛徒”的八个人，在1957年离开了肖克利公司。
+1957年10月，这八个“叛徒”在谢尔曼·费尔柴尔德的公司里创办了一个子公司，叫做仙童半导体公司。之后，八明星之一的霍尼尔发明了一种制造半导体的有效方法，叫做“平面工艺”。诺伊斯发明了集成电路。 仙童半导体公司作为一个重要的枢纽，很多人离开仙童后创办了自己的半导体公司。
+第3代：集成电路数字机（1964—1970年） 1965年，戈登·摩尔预测，集成电路的复杂程度将会每18个月增加一倍。这个预测后来被称为摩尔定律。 英特尔公司成立
+1968年，诺伊斯不再担任仙童半导体的CEO职务，他和摩尔创立英特尔公司，很快，格鲁夫加入英特尔公司，成了英特尔的第三名员工，并成为后来的总裁和CEO。
+ 英特尔的第一个产品是3101（RAM），第二年，推出1103，1kb容量的RAM，或称为动态随机存取存储器（DRAM）。1103能够取代磁芯存储器，成为了第一个商业上可用的芯片。第一个DRAM是由IBM的研究员罗伯特·邓纳德在1966年制造。
+ 1968年,阿帕网开始组建 ，1969 年第一期工程投入使用。开始时只有4个节点。1970年的ARPANET（阿帕网）已初具雏形，并且开始向非军用部门开放，许多大学和商业部门开始接入，同时阿帕网在美国东海岸地区建立了首个网络节点。 当时阿帕网只有四台主机联网运行。
+1969年，仙童半导体公司的营销大师杰里·桑德斯创办了AMD公司。AMD发明了一种商业模式：让别人去发明，然后对别人的设计进行改造。
+第4代：大规模集成电路机（1970年至今） 1970年，帕罗奥多研究中心公司（英语：Palo Alto Research Center, Inc.，缩写为PARC），前身为施乐帕罗奥多研究中心（Xerox PARC），曾是施乐公司所成立的最重要的研究机构，它坐落于美国加利福尼亚州的帕罗奥多，成立于1970年。在2002年1月4日起成为独立子公司。
+ 就像国内现在提倡的扁平化舒适宽敞的办公环境一样，Xerox PARC在那时候已经有了，帕罗奥多研究中心是许多现代计算机技术的诞生地，他们的创造性的研发成果包括：个人电脑Xerox Alto、激光打印机、鼠标、以太网；图形用户界面、Smalltalk、页面描述语言Interpress（PostScript的先驱）、图标、下拉菜单、所见即所得文本编辑器、语音压缩技术等。</description>
+    </item>
+    
+    <item>
+      <title>MacPorts,HomeBrew,Fink</title>
+      <link>https://fallingyang.github.io/posts/MacPortsHomeBrewFink/</link>
+      <pubDate>Wed, 12 Apr 2017 21:04:35 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/MacPortsHomeBrewFink/</guid>
+      <description> 如果你有Linux/Unix背景，那么在Mac上你一定想安装那些你熟悉的open source软件。 Fink，Macports和Homebrew是3个主流的package management tool。
+  Fink  Fink是基于Debian的packaging tools开发的。最大的特点是安装软件是预编译好的(pre-compiled/pre-built)。
+所以，用Fink安装package是不需要在本机编译的，都是现成的binary code。
+Fink最大的问题是package跟进不够快。很多最新版的软件，你要等Fink。
+ Macports   Mac算是BSD的一个变种吧。所以，BSD的包管理软件port被移植到Mac上就显的理所当然了。
+ macports的工作方式是下载source code然后在本地编译。macport的理念是尽量减少对系统现有库的依赖。 所以，第一次用macport的时候，需要很长时间让macport重新build整个基本库，什么perl啊，python啊的。
+代价是较长的编译时间，较多的依赖关系下载。好处是不怎么依赖系统，也就是说，更新Mac OS不会破坏你现有的 package。
+另外，macports安装所有的package到/opt/local下面。这样不会和系统现有的/usr/local有什么冲突。
+ Homebrew 这个比较新，是在Lion之后才兴起的。 工作方式和macport类似，也是下载source并在本地编译安装。但是和macports有两个根本的区别。 1） homebrew的理念是尽量使用系统现有的库。这样可以大大的减少编译时间。 2） package都安装到/usr/local下面。 这两点和macports是完全相反的。结果也是有利有弊。  最大的好处莫过于编译时间变短，安装简单。问题就是和系统紧密依赖。
+另外Homebrew假设你的Mac是单用户系统，所以/usr/local的owner应该是你，而不是传统的root。 这个假设在大多数情况下都成立。 （当然你可以改变homebrew的安装路径，然后修改你的PATH）
+另外，一个不太重要的区别，macport是用rsync来同步repository tree和获取新的package的。 homebrew是用git来管理repository的。 如果你是在内部网或者firewall后通过proxy使用，这点可能会给你带来影响&amp;ndash;一些proxy不支持rsync的。
+总结：
+ 忘了Fink吧，老了。 如果你是重量级的Linux用户，希望使用所有的open source package，那么macports是你不二的选择。 如果你只希望很快的安装一些便利的工具，那么homebrew是个不错的选择。  </description>
+    </item>
+    
+    <item>
+      <title>Mac下安装Redis的两种方法</title>
+      <link>https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 10 Feb 2017 18:13:34 +0800</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>本文主要介绍了redis的安装方法，以及redis的配置、Python客户端模块的安装。
+ 第一种方法：  OS X系统上面已经安装了Xcode，使用Xcode编译redis二进制文件
+ 下载源码并build redis $ curl -O http://download.redis.io/releases/redis-3.2.7.tar.gz $ tar -zxvf redis-3.2.7.tar.gz $ cd redis-3.2.7 $ make test $ make  注：当前时间Redis稳定版本为3.2.7。
+搭建redis服务器 $ mkdir -p /usr/local/redis/{conf,data,bin,log} $ mv src/redis-server src/redis-cli src/redis-sentinel src/redis-check-dump src/redis-benchmark src/redis-check-aof /usr/local/redis/bin $ cp redis.conf /usr/local/redis/conf/6379.conf  安装redis的Python客户端 $ mkdir ~/Workspace/python/redis_demo $ cd ~/Workspace/python/redis_demo $ pip install redis $ touch demo.py  注：pip安装方法:http://pip-cn.readthedocs.io/en/latest/installing.html。
+redis服务器的启动 $ cd /usr/local/redis/bin $ ./redis-server .</description>
+    </item>
+    
+    <item>
+      <title>Linux命令备忘录</title>
+      <link>https://fallingyang.github.io/posts/Linux%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+      <pubDate>Tue, 07 Feb 2017 00:06:29 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Linux%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+      <description>Linux命令： 常用指令 ls　显示文件或目录 -l 列出文件详细信息l(list) -a 列出当前目录下所有文件及目录，包括隐藏的a(all) mkdir 创建目录 -p 创建目录，若无父目录，则创建p(parent) cd 切换目录 touch 创建空文件 echo 创建带有内容的文件。 cat 查看文件内容 cp 拷贝 mv 移动或重命名 rm 删除文件 -r 递归删除，可删除子目录及文件 -f 强制删除 find 在文件系统中搜索某文件 wc 统计文本中行数、字数、字符数 grep 在文本文件中查找某个字符串 rmdir 删除空目录 tree 树形结构显示目录，需要安装tree包 pwd 显示当前目录 ln 创建链接文件 more、less 分页显示文本文件内容 head、tail 显示文件头、尾内容 ctrl+alt+F1 命令行全屏模式  系统管理命令 stat 显示指定文件的详细信息，比ls更详细 who 显示在线登陆用户 whoami 显示当前操作用户 hostname 显示主机名 uname 显示系统信息 top 动态显示当前耗费资源最多进程信息 ps 显示瞬间进程状态 ps -aux du 查看目录大小 du -h /home带有单位显示目录信息 df 查看磁盘大小 df -h 带有单位显示磁盘信息 ifconfig 查看网络情况 ping 测试网络连通 netstat 显示网络状态信息 man 命令不会用了，找男人 如：man ls clear 清屏 alias 对命令重命名 如：alias showmeit=&amp;quot;ps -aux&amp;quot; ，另外解除使用unaliax showmeit kill 杀死进程，可以先用ps 或 top命令查看进程的id，然后再用kill命令杀死进程。  打包压缩相关命令 gzip： bzip2： tar: 打包压缩 -c 归档文件 -x 压缩文件 -z gzip压缩文件 -j bzip2压缩文件 -v 显示压缩或解压缩过程 v(view) -f 使用档名 e.</description>
+    </item>
+    
+  </channel>
+</rss>

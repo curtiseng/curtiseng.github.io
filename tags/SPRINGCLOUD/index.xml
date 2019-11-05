@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SPRINGCLOUD on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/SPRINGCLOUD/</link>
+    <description>Recent content in SPRINGCLOUD on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 22 Dec 2017 10:20:50 +0000</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/SPRINGCLOUD/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>微服务学习记录</title>
+      <link>https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 22 Dec 2017 10:20:50 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
+      <description>一、思想  12-factor Apps DDD（服务层面与数据库层面） AFK扩展立方 服务契约（API接口） 康威定律（组织结构）  二、Spring Cloud版本及模块  文档基于2017年9月21日的Dalstom.SR3版
+  Core
+ 分布式/版本化配置
+ 服务注册和发现
+ 路由网关
+ 服务间会话
+ 负载均衡（包括客户端负载均衡与服务端负载均衡）
+ 熔断器
+ 分布式消息
+  三、Core  Spring Cloud强依赖Spring Boot（非准确）
+  Spring Cloud Context
+ external sources Context local external configuration files Context   两个Context共享一个Env,分为父子Context。
+ Spring Cloud Commons   定义基础的抽象的需要实现的各种服务模块，包括服务注册模块、健康检查、负载均衡、断路器。
+  服务注册:DiscoveryClient,@EnableDiscoveryClient 健康检查:DiscoveryHealthIndicator,通过收集spring boot actuator的健康信息。 负载均衡:LoadBalancerClient,@LoadBalanced,LoadBalancerAutoConfiguration 断路器:@EnableCircuitBreaker  四、 版本化配置（Spring Cloud Config）  ⚠️ 配置中心需要注意两点：1.</description>
+    </item>
+    
+  </channel>
+</rss>

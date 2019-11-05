@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GENERIC on 往事随风的博客</title>
+    <link>https://fallingyang.github.io/tags/GENERIC/</link>
+    <description>Recent content in GENERIC on 往事随风的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 21 Jun 2017 19:37:48 +0000</lastBuildDate>
+    
+	<atom:link href="https://fallingyang.github.io/tags/GENERIC/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java范型</title>
+      <link>https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/</link>
+      <pubDate>Wed, 21 Jun 2017 19:37:48 +0000</pubDate>
+      
+      <guid>https://fallingyang.github.io/posts/Java%E8%8C%83%E5%9E%8B/</guid>
+      <description>范型方法(GENERIC METHOD) [权限] [修饰符] [泛型] [返回值] [方法名] ( [参数列表] ) {} public static &amp;lt; E &amp;gt; void printArray( E[] inputArray ) {}  范型类(GENERIC CLASS) 泛型类和普通类的声明一样，只是在类名后面加上了类型表示。就像泛型方法，泛型类可以有一个或多个类型表示，用逗号进行分隔
+范型接口(GENERIC INTERFACE) 泛型接口是在声明接口的时候指定，类在继承接口的时候需要补充泛型类型，可以实现泛型接口的时候不指名泛型类型，这样这个类就需要定义为泛型类
+类型推导 以声明键值对的例子来说，通常的写法会有一长串，不免有些痛苦
+Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; m = new HashMap&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt;();  在JavaSE1.6之后，可以省略后面的范型
+Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; m = new HashMap&amp;lt;&amp;gt;();  还可以构造一个泛型方法作为静态工厂，来完成这一操作
+public static &amp;lt;K, V&amp;gt; HashMap&amp;lt;K, V&amp;gt; newInstance() { return new HashMap&amp;lt;K, V&amp;gt;(); } Map&amp;lt;String, List&amp;lt;String&amp;gt;&amp;gt; m = newInstance();  泛型标识与泛型通配符 标识规范</description>
+    </item>
+    
+  </channel>
+</rss>

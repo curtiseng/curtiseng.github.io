@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>微服务学习记录 | 往事随风的博客</title>
+    <meta property="og:title" content="微服务学习记录 - 往事随风的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2017-12-22T10:20:50&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2017-12-22T10:20:50&#43;08:00">
+        
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="微服务学习记录">
+        
+    <meta name="author" content="往事随风">
+    <meta property="og:url" content="https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://fallingyang.github.io">
+                        往事随风的博客
+                    </a>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        <div id="virtual_toc_list" style="display: none">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#一-思想">一、思想</a></li>
+<li><a href="#二-spring-cloud版本及模块">二、Spring Cloud版本及模块</a></li>
+<li><a href="#三-core">三、Core</a></li>
+<li><a href="#四-版本化配置-spring-cloud-config-http-cloud-spring-io-spring-cloud-static-spring-cloud-config-1-3-2-release">四、 版本化配置（<a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.3.2.RELEASE/">Spring Cloud Config</a>）</a>
+<ul>
+<li><a href="#base">Base：</a></li>
+<li><a href="#config-center">Config Center</a></li>
+<li><a href="#tips">tips：</a></li>
+</ul></li>
+<li><a href="#五-服务注册和发现">五、服务注册和发现</a>
+<ul>
+<li><a href="#1-自注册-the-self-registration-pattern">1. 自注册（The Self-Registration Pattern）</a></li>
+<li><a href="#2-第三方注册-the-third-party-registration-pattern">2. 第三方注册（The Third-Party Registration Pattern）</a></li>
+<li><a href="#3-高可用-eureka为例">3. 高可用（Eureka为例）</a></li>
+</ul></li>
+<li><a href="#六-路由">六、路由</a>
+<ul>
+<li><a href="#1-zuul">1. Zuul</a></li>
+<li><a href="#2-nginx">2. nginx</a></li>
+<li><a href="#3-spring-cloud-getway-snapshot版">3. Spring Cloud Getway(SNAPSHOT版)</a></li>
+</ul></li>
+<li><a href="#七-服务间通信">七、服务间通信</a>
+<ul>
+<li><a href="#1-feginclient">1. FeginClient</a></li>
+<li><a href="#tips-1">tips:</a></li>
+<li><a href="#question">question：</a></li>
+<li><a href="#2-resttemplateor">2. RestTemplateor</a></li>
+</ul></li>
+<li><a href="#八-负载均衡">八、负载均衡</a>
+<ul>
+<li><a href="#1-客户端负载均衡-fegin-ribbon">1. 客户端负载均衡（Fegin + Ribbon）</a></li>
+<li><a href="#2-服务端负载均衡-zuul">2. 服务端负载均衡（Zuul）</a></li>
+<li><a href="#3-网关负载均衡-nginx">3. 网关负载均衡（nginx）</a></li>
+</ul></li>
+<li><a href="#九-熔断器">九、熔断器</a></li>
+<li><a href="#十-分布式消息">十、 分布式消息</a>
+<ul>
+<li><a href="#1-redis消息订阅或消息列表">1. redis消息订阅或消息列表</a></li>
+<li><a href="#2-spring-cloud-stream">2. Spring Cloud Stream</a></li>
+<li><a href="#3-rabbitmq">3. RabbitMQ</a></li>
+</ul></li>
+<li><a href="#十一-权限安全">十一、权限安全</a>
+<ul>
+<li><a href="#1-分布式seesion-tomcat-redid-session-manager-https-github-com-jcoleman-tomcat-redis-session-manager">1. 分布式Seesion（<a href="https://github.com/jcoleman/tomcat-redis-session-manager">tomcat-redid-session-manager</a>）</a></li>
+<li><a href="#2-token-oauth">2. Token／Oauth</a></li>
+<li><a href="#3-jwt-oauth">3. JWT／Oauth</a></li>
+<li><a href="#4-管理端权限认证">4. 管理端权限认证</a></li>
+</ul></li>
+<li><a href="#十二-服务划分原则与nosql技术选型">十二、服务划分原则与NoSql技术选型</a></li>
+<li><a href="#十三-服务对接4种方式与事务">十三、服务对接4种方式与事务</a></li>
+<li><a href="#十四-服务间的关联与保持数据的一致性">十四、服务间的关联与保持数据的一致性</a></li>
+<li><a href="#十三-生产环境">十三、生产环境</a>
+<ul>
+<li><a href="#1-可用性">1. 可用性</a></li>
+<li><a href="#2-稳定性">2. 稳定性</a></li>
+<li><a href="#3-可靠性">3. 可靠性</a></li>
+<li><a href="#4-可扩展性">4. 可扩展性</a></li>
+<li><a href="#5-容错和容灾">5. 容错和容灾</a></li>
+<li><a href="#6-性能">6. 性能</a></li>
+<li><a href="#7-监控">7. 监控</a></li>
+<li><a href="#8-文档">8.文档</a></li>
+</ul></li>
+<li><a href="#十四-其他技术栈">十四、其他技术栈</a></li>
+<li><a href="#十五-领域驱动设计">十五、领域驱动设计</a></li>
+<li><a href="#十六-微服务书籍准备">十六、微服务书籍准备</a></li>
+<li><a href="#十七-关于mdm系统微服务化的思考">十七、关于MDM系统微服务化的思考</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+        
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                 
+                height: auto;
+                font-size: 13px;
+            }
+        
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let tocNavElem = document.getElementById("TableOfContents");
+                let floatTocDivElem = document.getElementById("float_toc_div");
+                let tocListElem = floatTocDivElem.getElementsByTagName('div')[0];
+                let colGroupElem = document.getElementById("body").getElementsByClassName("col-group")[0]
+                let floatTocWidth = (document.body.clientWidth - colGroupElem.offsetWidth) / 2 - 16;
+                var useFloatToc = false;
+
+                if (floatTocWidth >= 100) {
+                    useFloatToc = true;
+                    document.getElementById("toc_list").appendChild(tocNavElem);
+                    floatTocDivElem.style.display = 'block';
+                    floatTocDivElem.style.width = floatTocWidth + 'px';
+                    top();
+                    floatTocDivElem.style.left = '0px';
+
+                    function top() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.top = window.innerHeight / 9 + 'px';
+                        }
+                    }
+
+                    function ishide() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.display = 'block';
+                        }
+                    }
+
+                    window.onscroll = function () {
+                        ishide();
+                        if ((document.documentElement.scrollTop != 0) && (floatTocDivElem.style.display == 'block')) {
+                            top();
+                        }
+                    };
+
+                    window.onresize = function () {
+                        ishide();
+                    }
+
+                    document.getElementById("toc_btn_open").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "none":
+                                document.getElementById("toc_btn_close").style.display = "";
+                                tocListElem.style.display = "";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "1px solid gray";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+
+                    document.getElementById("toc_btn_close").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "":
+                                document.getElementById("toc_btn_close").style.display = "none";
+                                tocListElem.style.display = "none";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+                } else {
+                    let fixedTocElem = document.getElementsByClassName("toc-article")[0];
+                    fixedTocElem.appendChild(tocNavElem);
+                    fixedTocElem.parentElement.style.display = "";
+                }
+                document.getElementById("virtual_toc_list").remove();
+            };   
+        </script>
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">微服务学习记录</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2017年12月22日
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="clear" style="display: none">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                            </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            
+
+<h4 id="一-思想">一、思想</h4>
+
+<ul>
+<li>12-factor Apps</li>
+<li>DDD（服务层面与数据库层面）</li>
+<li>AFK扩展立方</li>
+<li>服务契约（API接口）</li>
+<li>康威定律（组织结构）</li>
+</ul>
+
+<h4 id="二-spring-cloud版本及模块">二、Spring Cloud版本及模块</h4>
+
+<blockquote>
+<p>文档基于2017年9月21日的Dalstom.SR3版</p>
+</blockquote>
+
+<ul>
+<li><p>Core</p></li>
+
+<li><p>分布式/版本化配置</p></li>
+
+<li><p>服务注册和发现</p></li>
+
+<li><p>路由网关</p></li>
+
+<li><p>服务间会话</p></li>
+
+<li><p>负载均衡（包括客户端负载均衡与服务端负载均衡）</p></li>
+
+<li><p>熔断器</p></li>
+
+<li><p>分布式消息</p></li>
+</ul>
+
+<h4 id="三-core">三、Core</h4>
+
+<blockquote>
+<p>Spring Cloud强依赖Spring Boot（非准确）</p>
+</blockquote>
+
+<ul>
+<li><p>Spring Cloud Context</p>
+
+<ul>
+<li>external sources Context</li>
+<li>local external configuration files Context</li>
+</ul></li>
+</ul>
+
+<p>两个Context共享一个<code>Env</code>,分为父子Context。</p>
+
+<ul>
+<li>Spring Cloud Commons</li>
+</ul>
+
+<blockquote>
+<p>定义基础的抽象的需要实现的各种服务模块，包括服务注册模块、健康检查、负载均衡、断路器。</p>
+</blockquote>
+
+<ul>
+<li>服务注册:<code>DiscoveryClient</code>,<code>@EnableDiscoveryClient</code></li>
+<li>健康检查:<code>DiscoveryHealthIndicator</code>,通过收集<code>spring boot actuator</code>的健康信息。</li>
+<li>负载均衡:<code>LoadBalancerClient</code>,<code>@LoadBalanced</code>,<code>LoadBalancerAutoConfiguration</code></li>
+<li>断路器:<code>@EnableCircuitBreaker</code></li>
+</ul>
+
+<h4 id="四-版本化配置-spring-cloud-config-http-cloud-spring-io-spring-cloud-static-spring-cloud-config-1-3-2-release">四、 版本化配置（<a href="http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.3.2.RELEASE/">Spring Cloud Config</a>）</h4>
+
+<blockquote>
+<p>⚠️ 配置中心需要注意两点：1. 应用程序是无状态的。 2.SDK实现application缓存配置中心配置文件，实现高可用。</p>
+</blockquote>
+
+<h5 id="base">Base：</h5>
+
+<ul>
+<li>Environment</li>
+</ul>
+
+<p>在Spring中，所有状态配置（properties）都放在<code>Env</code>里，我们可以通过<code>name</code>来区分不同的<code>Env</code>，也可以从<code>Env</code>中获取状态配置值。</p>
+
+<p>Spring Cloud同样的从<code>Env</code>里加载状态配置，分为外部配置和本地配置，他们在<code>application</code>中共享一个<code>Env</code>。</p>
+
+<ul>
+<li>bootstrap.yml</li>
+</ul>
+
+<p>bootstrap.yml先于application.yml加载，加载为一个<code>Parant Application Context</code> 。</p>
+
+<ul>
+<li>application.yml</li>
+</ul>
+
+<h5 id="config-center">Config Center</h5>
+
+<ul>
+<li><p>覆盖远程属性值</p></li>
+
+<li><p>自定义引导配置</p></li>
+
+<li><p><code>Env</code>变换监测</p></li>
+</ul>
+
+<p>可以使用<strong>Spring Cloud Bus</strong>来更好的广播<code>Env</code>的变化。</p>
+
+<ul>
+<li><p>配置变更加载机制</p></li>
+
+<li><p>RefrehScope</p></li>
+
+<li><p>加密／解密</p></li>
+</ul>
+
+<h5 id="tips">tips：</h5>
+
+<ul>
+<li>when using Spring Cloud Config Server, you should specify <code>spring.application.name</code> and <code>spring.cloud.config.server.git.uri</code> inside <code>bootstrap.yml</code></li>
+<li>Spring Boot Actuator监控统计功能</li>
+</ul>
+
+<h4 id="五-服务注册和发现">五、服务注册和发现</h4>
+
+<h5 id="1-自注册-the-self-registration-pattern">1. 自注册（The Self-Registration Pattern）</h5>
+
+<blockquote>
+<p>实现简单，但需要为每一种客户端实现注册代码</p>
+</blockquote>
+
+<ul>
+<li>Eureka(尤里卡) + Spring Cloud Commons</li>
+</ul>
+
+<blockquote>
+<p>Eureka中服务列表只维护在内存中，客户端也有一份缓存</p>
+</blockquote>
+
+<ul>
+<li>Consul + Spring Cloud Consul</li>
+</ul>
+
+<h5 id="2-第三方注册-the-third-party-registration-pattern">2. 第三方注册（The Third-Party Registration Pattern）</h5>
+
+<blockquote>
+<p>将服务与服务注册解耦，但需要单独的注册组件</p>
+</blockquote>
+
+<ul>
+<li>Consul + Registrator</li>
+<li>Etcd + Registrator</li>
+<li>SkyDNS 2 + Registrator</li>
+<li>Prana + Spring Cloud Sidecar</li>
+</ul>
+
+<h5 id="3-高可用-eureka为例">3. 高可用（Eureka为例）</h5>
+
+<ul>
+<li>单机模式（Standalone Mode）（非高可用）</li>
+</ul>
+
+<p>单机模式下通过Eureka服务端和Eureka客户端的至少两份caches和它们之间的心跳来确保高可用，在这种模式下需要关闭Eureka服务端本身的客户端功能。</p>
+
+<pre><code class="language-properties">  client: 
+  	registerWithEureka: false
+  	fetchRegistry: false
+  	serviceUrl: 
+  		defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+</code></pre>
+
+<p>注意：the serviceUrl is pointing to the same host as the local instance.</p>
+
+<ul>
+<li>多节点感知（Peer Awareness）</li>
+</ul>
+
+<p>这是Eureka服务发现的默认配置，多个节点互相注册，需要开启<code>registerWithEureka</code>和<code>fetchRegistry</code>,表示向其他注册中心注册自己，并且获取服务清单。例如（通常3个节点）：</p>
+
+<ul>
+<li>peera注册到peerb、peerc</li>
+<li>peerb注册到peera、peerc</li>
+<li>peerc注册到peera、peerb</li>
+</ul>
+
+<p>通常<code>eureka.instance.hostname</code>在生产环境没什么用，<code>java.net.InetAddres</code>可以双向解析IP和hostname。</p>
+
+<ul>
+<li>服务可配置项</li>
+</ul>
+
+<p>Eureka Server可以配置的项都在<code>EurekaInstanceConfig</code>接口里。</p>
+
+<p><strong>tips：</strong></p>
+
+<ul>
+<li>某些情况下使用ip比hostname好，可以通过<code>eureka.instance.preferIpAddress=true</code>设置使用IP。</li>
+<li>hostname不能相同（使用IP是否可以相同还没有测试）。</li>
+</ul>
+
+<p><strong>As you will see:</strong><a href="https://github.com/Netflix/eureka/wiki/Understanding-Eureka-Peer-to-Peer-Communication">Understanding Eureka Peer to Peer Communication</a> and <a href="https://github.com/Netflix/eureka/wiki">other wikis</a>.</p>
+
+<h4 id="六-路由">六、路由</h4>
+
+<blockquote>
+<p>⚠️路由需要注意两点：1. 是否支持HTTP2.0。2. IO方式</p>
+</blockquote>
+
+<h5 id="1-zuul">1. Zuul</h5>
+
+<blockquote>
+<p>spring cloud 提供了一个嵌入式的zuul实现在<code>spring-cloud-netflix-core</code>里。</p>
+</blockquote>
+
+<p>版本管理配置</p>
+
+<h5 id="2-nginx">2. nginx</h5>
+
+<h5 id="3-spring-cloud-getway-snapshot版">3. Spring Cloud Getway(SNAPSHOT版)</h5>
+
+<h4 id="七-服务间通信">七、服务间通信</h4>
+
+<h5 id="1-feginclient">1. FeginClient</h5>
+
+<ul>
+<li>@EnableFeignClients</li>
+<li>@FeignClient(name = &ldquo;service&rdquo;)</li>
+</ul>
+
+<h5 id="tips-1">tips:</h5>
+
+<ul>
+<li>Fegin如何跳过或进行JWT验证：实现RequestInterceptor的接口，在apply方法里，通过RequestTemplate对象获取内容进行验证。</li>
+<li>版本管理<code>服务url</code> + <code>版本号</code>  (将版本号配置到配置中心)</li>
+</ul>
+
+<h5 id="question">question：</h5>
+
+<ul>
+<li>如果是小规模的服务间通信，不需要负载，Fegin的价值还有么。</li>
+</ul>
+
+<h5 id="2-resttemplateor">2. RestTemplateor</h5>
+
+<h4 id="八-负载均衡">八、负载均衡</h4>
+
+<h5 id="1-客户端负载均衡-fegin-ribbon">1. 客户端负载均衡（Fegin + Ribbon）</h5>
+
+<h5 id="2-服务端负载均衡-zuul">2. 服务端负载均衡（Zuul）</h5>
+
+<h5 id="3-网关负载均衡-nginx">3. 网关负载均衡（nginx）</h5>
+
+<h4 id="九-熔断器">九、熔断器</h4>
+
+<ul>
+<li>fegin与hystrix结合</li>
+<li>服务中fallback</li>
+</ul>
+
+<p><strong>As you will see:</strong><a href="https://martinfowler.com/bliki/CircuitBreaker.html">CircuitBreaker</a></p>
+
+<h4 id="十-分布式消息">十、 分布式消息</h4>
+
+<h5 id="1-redis消息订阅或消息列表">1. redis消息订阅或消息列表</h5>
+
+<h5 id="2-spring-cloud-stream">2. Spring Cloud Stream</h5>
+
+<h5 id="3-rabbitmq">3. RabbitMQ</h5>
+
+<h4 id="十一-权限安全">十一、权限安全</h4>
+
+<blockquote>
+<p>⚠️权限安全的问题：Token注销方法</p>
+</blockquote>
+
+<h5 id="1-分布式seesion-tomcat-redid-session-manager-https-github-com-jcoleman-tomcat-redis-session-manager">1. 分布式Seesion（<a href="https://github.com/jcoleman/tomcat-redis-session-manager">tomcat-redid-session-manager</a>）</h5>
+
+<h5 id="2-token-oauth">2. Token／Oauth</h5>
+
+<h5 id="3-jwt-oauth">3. JWT／Oauth</h5>
+
+<p>jwt保存在认证服务器的原因：</p>
+
+<ul>
+<li>下次认证不需要重新生成，如果没有过期直接取出</li>
+<li>注销列表，注销的token放在认证服务器上，其他服务每次都查一次这个token有没有在</li>
+<li>单点登录</li>
+</ul>
+
+<p>算法加密密码设置两个，都可以使用，这样做为了方便在用户无感知的情况下替换密码</p>
+
+<p>非信任第三方服务使用clientId和clientSecret</p>
+
+<h5 id="4-管理端权限认证">4. 管理端权限认证</h5>
+
+<ul>
+<li><p>hystrix</p>
+
+<pre><code class="language-properties">hystrix.shareSecurityContext: true
+</code></pre></li>
+</ul>
+
+<p>Hystrix execute in another/different thread, transfer your security context by HystrixRequestVariableDefault</p>
+
+<ul>
+<li><p>actuator</p>
+
+<pre><code class="language-properties">security.basic.enabled=true
+security.basic.path=/admin    #针对/admin路径进行认证
+security.user.name=admin     #认证使用的用户名
+security.user.password=password   #认证使用的密码
+management.security.roles=SUPERUSER
+
+management.port=11111   #actuator暴露接口使用的端口，为了和api接口使用的端口进行分离
+management.context-path=/admin   #actuator暴露接口的前缀
+management.security.enabled=true   #actuator是否需要安全保证
+
+endpoints.metrics.sensitive=false   #actuator的metrics接口是否需要安全保证
+endpoints.metrics.enabled=true
+
+endpoints.health.sensitive=false  #actuator的health接口是否需要安全保证
+endpoints.health.enabled=true
+</code></pre></li>
+
+<li><p>自定义spring拦截器拦截情况</p></li>
+</ul>
+
+<p>默认拦截hystrix，不拦截actuator</p>
+
+<h4 id="十二-服务划分原则与nosql技术选型">十二、服务划分原则与NoSql技术选型</h4>
+
+<p>一般情况下一个服务就是领域模型中某一个聚合下的所有集，但有些时候一个聚合可以关联另一个子聚合组成一个服务，这种情况一般发生在两个聚合关联十分紧密，而其中的子聚合与其他服务关联不是太多。</p>
+
+<ul>
+<li>对于面向事务处理的服务（如财务记录的事实），关系型数据库是最好的选择，</li>
+<li>对于面向日志服务，*NoSQL的*数据库，如MongoDB是一个不错的选择，</li>
+<li>对于管理着社交图谱服务，*Neo4j的*是一个伟大的选择，</li>
+<li>对于确实在文件系统中的非结构化文档密集的搜索服务，*ElasticSearch*是不错的选择，</li>
+<li>对于存储用户会话的服务，*Redis的*是不错的选择，</li>
+<li>对于处理和显示分析数据服务，*Cassandra*是不错的选择</li>
+</ul>
+
+<h4 id="十三-服务对接4种方式与事务">十三、服务对接4种方式与事务</h4>
+
+<p>共享数据：创建的服务是单一系统记录（System of Record，SoR）的并且拥有自己的所有数据。数据的其他副本是只读的，只是非权威（non-authoritative）的缓存。为了访问共享数据，我们有三个可选方案：同步查找（一个服务调用另外的服务来获取数据）、具有缓存的异步事件或共享元数据库；</p>
+
+<p>连接：将数据切分为单独的服务会让连接变得很困难。在微服务领域中，我们可以在客户端应用中进行数据连接，或者是通过监听两个服务的事件，创建“物化视图（Materialized Views）”，并在本地存储中维护非规格化（denormalized）的两个数据集的连接结果。</p>
+
+<p>事务：在单体应用中，事务管理非常容易，但是在微服务架构中却非常困难，因为数据被拆分到了多个不同的服务中了。我们可以将事务实现为一种工作流，它会按照倒序使用补偿操作从而形成一种回滚机制。很多现实系统已经采用了这种方式，比如支付处理和费用审批的系统。这些流程也是采用功能即服务（<a href="https://aws.amazon.com/lambda/">Serverless架构</a>）的理想候选方案。</p>
+
+<ul>
+<li>request-reply with events</li>
+<li>request-reply with commonds/queries</li>
+<li>publish-subscribe with events</li>
+<li>publish-subscribe with commonds/queries</li>
+</ul>
+
+<p>几个服务简单的数据集连接使用<code>commonds/queries</code>模式；如果是交互型连接，简单的可以创建关联数据的副本，复杂的使用事件传播；如果是复杂数据的连接，使用物化视图。</p>
+
+<p>看到PiggyMetrics项目里Auth服务提供User的创建，但创建了一个User对象来传输User。</p>
+
+<ul>
+<li>TCC补偿类型事务</li>
+<li>eventuate：基于事件驱动的微服务分布式事务，使用mysql和kafka</li>
+<li>TCC,2PC，使用zookeeper</li>
+<li>saga</li>
+</ul>
+
+<h4 id="十四-服务间的关联与保持数据的一致性">十四、服务间的关联与保持数据的一致性</h4>
+
+<ul>
+<li>服务的关联
+
+<ul>
+<li>客户端中进行数据的聚合</li>
+<li>单独的后台UI服务聚合数据</li>
+<li>维护事件列表，其中保存聚合根ID以及补偿数据</li>
+</ul></li>
+</ul>
+
+<h4 id="十三-生产环境">十三、生产环境</h4>
+
+<h5 id="1-可用性">1. 可用性</h5>
+
+<h5 id="2-稳定性">2. 稳定性</h5>
+
+<h5 id="3-可靠性">3. 可靠性</h5>
+
+<h5 id="4-可扩展性">4. 可扩展性</h5>
+
+<h5 id="5-容错和容灾">5. 容错和容灾</h5>
+
+<h5 id="6-性能">6. 性能</h5>
+
+<h5 id="7-监控">7. 监控</h5>
+
+<h5 id="8-文档">8.文档</h5>
+
+<blockquote>
+<p>Swagger2 and ZipKin</p>
+</blockquote>
+
+<h4 id="十四-其他技术栈">十四、其他技术栈</h4>
+
+<ul>
+<li>nosql ：Hazelcast，redis</li>
+<li>分布式查询搜索：物化视图、Elasticsearch</li>
+<li>日志：ELK, EFK</li>
+<li>分布式跟踪：Zipkin, Skywalking</li>
+</ul>
+
+<h4 id="十五-领域驱动设计">十五、领域驱动设计</h4>
+
+<ul>
+<li>sql语句中尽量不含业务逻辑，将业务逻辑隐藏在领域的service里</li>
+<li>防崩溃层（熔断）应该放在调用方，因为只有调用方才知道崩溃时该如何降级处理</li>
+<li>开发人员应该参与业务领域分析，碰撞专有名词和领域划分，以方便领域模型可以在开发中真正可用，不会随着开发变形</li>
+<li>值对象只存在于领域里，而VM与DTO等存在于UI层和应用层</li>
+<li>简单对象创建使用构造器，复杂的需要构造多个依赖实体的使用工厂方法，聚合根对外唯一暴漏，service是聚合根或实体的动作和状态，一个服务可以有多个聚合根。</li>
+<li>减少使用公共库，尤其是业务相关，因为一旦使用了公共库，就限制了服务异构的技术，而且面临大规模重新部署的风险。</li>
+<li>建模时防止自己陷入ORM以及数据库关系的思考中，比如hebernate组合实体等，而要从业务出发，结合边界上下文，服务大小（感觉不是很大就是足够小而不至于太小）。</li>
+<li>演化架构师，架构师不是建筑师而是城市规划师，不要从一开始就想要设计完美精确的东西，架构师必须不断的应对变化。</li>
+<li>伟大的架构来自于伟大的人，如果只看到技术的问题，可能只看到了问题的一半。</li>
+<li>restful的动作不足以解释业务领域，我们可以通过对动作抽象，使用restful动作操作领域动作。</li>
+<li>接口实现要“宽进严出”，业务要“严进严出”。</li>
+<li>多线程是异步的一种实现方式。</li>
+<li>异步与阻塞有4种组合方式。</li>
+<li>代码的解耦使用事件，服务的解耦用MQ。</li>
+<li>对于复杂查询，量少的可以对外提供聚合根，跨服务多条件聚合为单一主键，缺点是需要转变CURD式开发风格；中等查询量使用数据库物化视图结合CQRS，数据库读写分离，缺点是实时性低；量大复杂查询建立查询引擎，例如前端查询引擎GraphQL或者后端查询引擎，缺点是使用成本高。</li>
+<li>对于数据权限，最后都是拼sql，JPA的criteria，Spring Data JPA的Specifitition就是现成的动态sql，或者自己实现sql标准解释器；然后什么时候拼sql，service里自己写，AOP方式，拦截器方式，还有文章里的代理方式，代理方式又有很多种，外部中间件代理，应用内部JDBC代理，外部代理又有集中式引擎和最近流行的sidecar方式。</li>
+<li>对于异常，用户输入的异常尽早捕捉，并尽早以合适的方法抛出到客户端；对于程序本身产生的异常，尽早抛出，然后需要告知调用层的或者自己没有办法确定解决办法的向上传递，其他的抛出RuntimeException，如果这个异常十分严重，则抛出Exception，中断程序。对于异常的向上传递，可以使用<strong>Catch → Rethrow</strong>方式。关于CheckedException和UncheckedException，<em>如果可以合理地期望客户端从异常中恢复，请将其作为已检查的异常。如果客户端无法执行任何操作以从异常中恢复，请将其设置为未经检查的异常</em></li>
+</ul>
+
+<h4 id="十六-微服务书籍准备">十六、微服务书籍准备</h4>
+
+<ul>
+<li>引出最本质的，从通信、领域方面介绍微服务</li>
+<li>结合某一具体领域，如主数据管理平台MDM</li>
+<li>将具体的实现放在附录里</li>
+<li>理论剖析，并给出实例，不过实例不长篇大论</li>
+<li>最好能给大学生等指出他们学习课本那些知识的用处</li>
+<li>在通俗中找出理论，比如star法则、二元论、管理法则、经济法则，结合哲学等等</li>
+</ul>
+
+<h4 id="十七-关于mdm系统微服务化的思考">十七、关于MDM系统微服务化的思考</h4>
+
+<ul>
+<li>计算密集型的领域如何处理</li>
+<li>领域间的大规模数据如何传递，增加缓冲数据层</li>
+<li>MDM是否会出现幂等性，是否可以通过加时间戳实现解决幂等性的事件，或者使用全局序列</li>
+<li>使用事件编排服务器，完成工作流，事件编排服务器保存所有服务的事件，统一发送事件到服务</li>
+</ul>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://fallingyang.github.io">往事随风</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">https://fallingyang.github.io/posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/Java%E8%8C%83%E5%9E%8B/">Java范型</a></li>
+        
+        <li><a href="/posts/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Mysql学习笔记</a></li>
+        
+        <li><a href="/posts/%E7%A1%85%E8%B0%B7%E7%99%BE%E5%B9%B4%E5%8F%B2%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">硅谷百年史读书笔记</a></li>
+        
+        <li><a href="/posts/MacPortsHomeBrewFink/">MacPorts,HomeBrew,Fink</a></li>
+        
+        <li><a href="/posts/Mac%E5%AE%89%E8%A3%85redis%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/">Mac下安装Redis的两种方法</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1">微服务</a></li>
+                                
+                                <li><a href="https://fallingyang.github.io/tags/SPRINGCLOUD">SPRINGCLOUD</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "fallingyang/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

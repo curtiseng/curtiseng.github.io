@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>往事随风的博客 | 软件工程师|微服务中间件研发|熟悉Java,Go,Rust</title>
+    <meta property="og:title" content="往事随风的博客 | 软件工程师|微服务中间件研发|熟悉Java,Go,Rust">
+    <meta property="og:type" content="website">
+    <meta name="Keywords" content="往事随风,博客">
+    <meta name="description" content="代码洁癖者,软件架构等">
+    <meta property="og:url" content="https://fallingyang.github.io/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="https://fallingyang.github.io/index.xml" title="往事随风的博客" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+</head>
+
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <h1>
+                        <a id="logo" href="https://fallingyang.github.io">
+                            往事随风的博客
+                        </a>
+                    </h1>
+                
+                <p class="description">软件工程师|微服务中间件研发|熟悉Java,Go,Rust</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://fallingyang.github.io">首页</a>
+                    
+                    <a  href="https://fallingyang.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://fallingyang.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较" >envoy与hystrix熔断比较</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月4日
+                            </date>
+                            
+                            <div class="post-content">
+                                envoy有更好的熔断策略
+hystrix有更精确的控制以及fallback操作
+但这些都可以弥补，如精确的路由操作以及在方法的异常内处理fallback操作……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路" >数据权限的两种思路</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年11月1日
+                            </date>
+                            
+                            <div class="post-content">
+                                数据权限的两种思路 一种侧重自动过滤，请求没有明确的业务意图，一种侧重主动拦截，请求有明确的业务意图；
+前者将业务意图封装在数据库层面，后者将业务意图交由前端和领域层（控制层只是领域层的简单表现形式）。
+数据库拦截器（数据过滤）  Mybatis Intercepts JPA Predicate  url规则过滤（权限拦截）  基于策略的权限控制  以部门为例 比如我要部门的人员，数据库里人员有系统部门字段，不同角色可以看到不同的人，部门管理员可以看到自己所在部门的人员，父部门可以看到子部门的人员，数据拦截的方式是在业务后端判断不同角色，查找不同的规则，根据规则填充拦截器，返回数据；URL规则过滤则是提前将规则数据放入策略引擎，前端需要根据具体业务将具体需要查询的部门，子部门返回，规则引擎判断URL里的部门数据是否合法。……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模" >组织机构及项目建模</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月29日
+                            </date>
+                            
+                            <div class="post-content">
+                                公司与项目的关系……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱" >用户安全与认证技术图谱</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年10月18日
+                            </date>
+                            
+                            <div class="post-content">
+                                架构篇  用户中心是云原生的基石  什么是云原生 为什么企业需要用户中心及其复杂度(以google为例) 用户中心的组成(账户信息、登录客户端、资源服务、老旧系统、开放平台、统一第三方登录)  用户认证技术  Base(基于Security各种基础词汇，比如认证、授权、鉴权、身份保持&hellip;) OAuth2 OIDC JOSE标准 关系与取舍  用户中心架构选择  非OAuth2方案(session共享、CAS、Token) 身份保持方案(Session、Token、JWT) RABC与OAuth2,集中或者分散 网关统一认证与资源服务器独立认证 代理认证与一些&rdquo;旁门左道&rdquo; 一个可行的方案  多租户与地区亲和  单体实现篇  权限控制模式与模型设计  RBAC ABAC(PBAC) 其他(ReBAC、OrBAC)  使用Spring Security保护Web  Spring Security架构(config、core、web、过滤器、配置装配) 授权(Authorization:Session和JWT方案) 鉴权(Authentication:字符串匹配算法，动态鉴权) 保护REST API 保护WebFlux API  使用OPA和Spring Security保护API 单页面应用前端权限控制  分布式实现篇  使用Spring Security OAuth2实现用户中心  Spring Security OAuth2架构(不同组件过滤器的优先级配合) Spring Security5 OAuth2架构与重构原因  授权服务器实现(无状态、多租户)  用户服务实现与同步方案 使用Spring Security5实现OIDC 集成第三方Provider 授权服务集成LDAP 多租户(三种隔离级别与实现方式)  认证方式  认证网关密码模式登录 OAuth2Login实现登录 单点登录(OAuth2单点登录原理，浏览器识别)  资源服务器实现(资源服务器与鉴权的关系) 开放平台实现 OAuth2 Proxy实现  nginx实现 treafik实现   安全增强  安全增强  授权服务器注意事项 客户端注意事项 HTTPS CSRF、CORS LocalStorage、Cookie session管理 记录登录状态 内容安全策略(CSP) 密码加密 使用Vault管理密钥……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019" >云原生参会记录2019</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年6月27日
+                            </date>
+                            
+                            <div class="post-content">
+                                ###1. workshop
+ 基于 SOFAStack 快速构建微服务  本地演示通过SOFARPC实现服务间调用。
+ 金融场景下的分布式事务最佳实践  分布式事务主要实现了AT和TCC两种场景，Seata项目正在实现XA和SAGA模式的分布式事务。
+ 基于 Kubernetes 的云原生部署体验  上述demo在SOFACloud的部署与发布。
+ 云上的 Service Mesh 基本使用场景体验  蚂蚁金服的Cloud Mesh产品体验，实现零侵入的服务链路监控，以及灰度发布。
+ 基于 Serverless 轻松构建云上应用  蚂蚁金服对于Serverless的理解为一切皆可Serverless。
+2. 技术演讲  部署 Harbor 和管理 Harbor Helm Charts 的真实实践与如何轻松地重复启动 Helm Chart 安装过程：
+ 可使用向导来呈现安装 Chart 时的设置验证（values.yaml）；
+ 相应 Chart 设置的值集将作为 Chart 部署配置保留，以备将来重用；
+ 可以在存储库中管理 Chart 安装的 Chart 部署配置，以进行区分、复制和重用。
+  惠普使用Istio和OPA实现不同级别服务的Access Control。第一级别的服务大部分来自第三方服务，无法对服务进行代码级别的权限控制，在这一级别的服务我们使用Istio的服务级别的权限控制，Istio服务级别的权限控制使用的是Kubernetes自身的RBAC特性；第二级别服务就是业务中比较公共的服务，这些服务在不同的场景下有不同的权限控制，我们使用OPA来实现基于策略的访问控制(基于属性的访问控制)，基于策略的权限控制可以很灵活的更改。
+ 降低SCF托管应用的冷启动，主要分为三个方面，一个是降低冷启动时延，优化调度、容器启动、代码拉取，同时更改容器网络实现。二是避免冷启动，实时预测，平衡资源和延迟，对于调用链路上的函数，感知后提前启动，经过以上优化，降低到0.0X的冷启动率。三是灰度切换，提前预知。关于网络优化主要是创建SCF网络代理，在创建容器时同时创建网卡代理，对比传统创建容器后初始化网卡更加快速。
+ AWS分享Java程序员的Kubernetes之旅(github)：……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程" >并发编程</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年5月10日
+                            </date>
+                            
+                            <div class="post-content">
+                                 思想  分工  Java语言提供的Executor、Fork/Join、Future等 Go语言提供的go关键字 生产者-消费者 Thread-Per-Message Worker Thread  同步(协作)  管程模型 Java语言提供的Executor、Fork/Join、Future分工方法也解决线程协作的问题，Java语言特有的CountDownLatch、CyclicBarrier、Phaser、Exchanger等，这些底层都是使用管程模型 Go语言  互斥  可见性与有序性的内存模型来确保同一时刻，只允许一个线程访问共享变量，也叫互斥 语言同步关键字、各种Lock、不共享变量、变量只读、Copy-on-write模式 Java中的synchronized关键字，SDK中的Lock，ThreadLocal，final关键字   术语  并发与并行  并发属于代码；并行属于一个运行中的程序。并发是相对于一个代码上下文的。
+ 原子上下文：进程上下文，操作系统上下文，硬件上下文，goroutine上下文
+ 原子性：不可分割(indivisible)和不可中断(uninterruptible)
+ 可见性
+ 有序性
+ 竞争条件：当两个或多个操作必须按正确的顺序执行，而程序未保证这个顺序，就会发生竞争。
+ 临界区(critical section)：程序中需要独占访问共享资源的部分
+ 并发安全
+ 死锁、活锁、饥饿
+ 内存模型
+ 内存访问同步
+ CSP
+  ……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用" >Hibernate使用</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年3月13日
+                            </date>
+                            
+                            <div class="post-content">
+                                常见问题: 1. SpringJPA中getOne()与findById()区别:
+   getOne() findById()     Lazily loaded reference to target entity Actually loads the entity for the given id   Useful only when access to properties of object is not required Object is eagerly loaded so all attributes can be accessed   Throws EntityNotFoundException if actual object does not exist at the time of access invocation Returns null if actual object corresponding to given Id does not exist   Better performance An additional round-trip to database is required    https://www.……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记" >The little Go Book读书笔记</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年3月13日
+                            </date>
+                            
+                            <div class="post-content">
+                                一、基础知识 go是一种编译型、具有静态类型和类c风格语法的语言，并具备垃圾回收机制。go语言的语法相对于c来说更加简洁，结尾没有分号，if、for等条件可以省略括号，while可以用for来表示。go的变量声明类型在变量名后边，这样设计的原因可以在go blog中找到，变量有默认值，也可以使用:=来自动推断类型。在GoPL一书里推荐使用显式的var power int = 0来取代默认值，同时也可以在不太关注类型的局部函数里，使用推断类型power := 0。:=必须使用在新变量上，之后只能用=来赋值，同时go支持多个变量同时赋值。go函数实现了柯里化，容许返回多个值，如果返回值中有用不到的值，你可以将他赋给_，这表示一个空白标示符。在CNGo里， 介绍了常用的Go模式之一就是定义一个函数，同时返回一个值和一个错误值，如果函数没有出错，错误值就是nil,还需要注意的是返回值的名称只在函数定义的范围内有效。go函数多个参数类型一样时，也可以使用简略写法func add (a, b int) int {...}。
+二、结构体 go不是一个面向对象的语言，它没有对象和继承的概念，因此也没有面向对象语言的特性如多态和重载。go提供了结构体，并且可以将一些方法和结构体关联，结构体在赋值时每个等式后都要加,，即使是最后一个等式。在go语言中，函数的参数传递是按值传递的，所以我们可以使用指针来改变原参数的值。在go语言中，使用组合来来代替继承，go语言中的组合调用十分简洁，组合体可以直接调用子体的方法。而且因为匿名组合是一种编译技巧，我们能“重写”一个组合子体的方法，但为了区分子体的方法，调用子体方法时就需要指定子体s.Person.Introduce()。……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型" >Envoy线程模型</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年12月25日
+                            </date>
+                            
+                            <div class="post-content">
+                                关于基于代码的Envoy的low level技术文档目前十分稀缺。为了解决文档稀少的问题，我准备写一系列介绍Envoy中各种子系统的文章。由于这是第一篇文章，我希望得到大家的回馈，包括其他你希望了解的主题。……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）" >分布式事务分类（长事务）</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年11月23日
+                            </date>
+                            
+                            <div class="post-content">
+                                 2PC 3PC XA JTA TCC MQ SAGA ……
+                            </div>
+                            <p class="readmore"><a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/">阅读全文</a></p>
+                        </article>
+                    
+                    
+                    
+
+
+
+<ol class="page-navigator">
+    
+
+    
+    <li  class="current">
+        <a href="https://fallingyang.github.io/">1</a>
+    </li>
+    
+    <li >
+        <a href="https://fallingyang.github.io/page/2/">2</a>
+    </li>
+    
+    <li >
+        <a href="https://fallingyang.github.io/page/3/">3</a>
+    </li>
+    
+
+    
+    <li class="next">
+        <a href="https://fallingyang.github.io/page/2/">下一页</a>
+    </li>
+    
+</ol>
+
+
+
+                </div>
+            </div>
+
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://fallingyang.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/envoy%E4%B8%8Ehystrix%E7%86%94%E6%96%AD%E6%AF%94%E8%BE%83/" title="envoy与hystrix熔断比较">envoy与hystrix熔断比较</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E6%95%B0%E6%8D%AE%E6%9D%83%E9%99%90%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF/" title="数据权限的两种思路">数据权限的两种思路</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%BB%84%E7%BB%87%E6%9C%BA%E6%9E%84%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%BB%BA%E6%A8%A1/" title="组织机构及项目建模">组织机构及项目建模</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E7%94%A8%E6%88%B7%E5%AE%89%E5%85%A8%E4%B8%8E%E8%AE%A4%E8%AF%81%E6%8A%80%E6%9C%AF%E5%9B%BE%E8%B0%B1/" title="用户安全与认证技术图谱">用户安全与认证技术图谱</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%82%E4%BC%9A%E8%AE%B0%E5%BD%95/" title="云原生参会记录2019">云原生参会记录2019</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="并发编程">并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Hibernate%E4%BD%BF%E7%94%A8/" title="Hibernate使用">Hibernate使用</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/TheLittleGoBook%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="The little Go Book读书笔记">The little Go Book读书笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/Envoy%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Envoy线程模型">Envoy线程模型</a>
+    </li>
+    
+    <li>
+        <a href="https://fallingyang.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%88%86%E7%B1%BB/" title="分布式事务分类（长事务）">分布式事务分类（长事务）</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://fallingyang.github.io/tags/AUTH/">AUTH</a>
+    
+    <a href="https://fallingyang.github.io/tags/BUSINESS/">BUSINESS</a>
+    
+    <a href="https://fallingyang.github.io/tags/CLOUDNATIVE/">CLOUDNATIVE</a>
+    
+    <a href="https://fallingyang.github.io/tags/DISTRIBUTION/">DISTRIBUTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/ENVOY/">ENVOY</a>
+    
+    <a href="https://fallingyang.github.io/tags/EUREKA/">EUREKA</a>
+    
+    <a href="https://fallingyang.github.io/tags/GENERIC/">GENERIC</a>
+    
+    <a href="https://fallingyang.github.io/tags/GO/">GO</a>
+    
+    <a href="https://fallingyang.github.io/tags/HYSTRIX/">HYSTRIX</a>
+    
+    <a href="https://fallingyang.github.io/tags/Hibernate/">Hibernate</a>
+    
+    <a href="https://fallingyang.github.io/tags/LAMBDA/">LAMBDA</a>
+    
+    <a href="https://fallingyang.github.io/tags/LINUX/">LINUX</a>
+    
+    <a href="https://fallingyang.github.io/tags/MAC/">MAC</a>
+    
+    <a href="https://fallingyang.github.io/tags/MYSQL/">MYSQL</a>
+    
+    <a href="https://fallingyang.github.io/tags/OAUTH2/">OAUTH2</a>
+    
+    <a href="https://fallingyang.github.io/tags/ORM/">ORM</a>
+    
+    <a href="https://fallingyang.github.io/tags/REDIS/">REDIS</a>
+    
+    <a href="https://fallingyang.github.io/tags/SOFTWARE/">SOFTWARE</a>
+    
+    <a href="https://fallingyang.github.io/tags/SPRINGCLOUD/">SPRINGCLOUD</a>
+    
+    <a href="https://fallingyang.github.io/tags/TRANSACTION/">TRANSACTION</a>
+    
+    <a href="https://fallingyang.github.io/tags/WORKFLOW/">WORKFLOW</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%B9%B6%E5%8F%91/">并发</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC/">服务网格</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    
+    <a href="https://fallingyang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%86%E5%8F%B2/">计算机历史</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://github.com/fallingyang/container-networking-docker-kubernetes" title="容器网络">Docker与Kubernetes网络</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://fallingyang.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://fallingyang.github.io">往事随风的博客 By 往事随风</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+
+</body>
+</html>
